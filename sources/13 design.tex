@@ -260,13 +260,20 @@ It also has click-interrupt which could be used to wake up the tracker or config
 
 \textit{C47} and \textit{C48} are defined from the datasheet \sbref{app:hardware:lis2de12}, p. 19)
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/STM32_LR1110_interface.png}
+    \caption{Interface between STM32 and LR1110.}
+    \label{fig:stm32_lr1110_interface}
+\end{figure}
+
 \subsubsection{Hall Effect/Magnetic Sensors}
-We are implementing a hall effect sensor to make the tracker waterproof and easier to turn on and off. We chose \hyperref[bom:bu52077gwz]{BU52077GWZ-E2} (datasheet: \sbref{app:hardware:BU52077GWZ}). It has a typical operational current of \SI{5}{\micro\ampere} and can operate at a voltage down to \SI{1.65}{\volt}. It has a normal \ac{GPIO} interface and is therefore easy to implement with a simple interrupt on the STM32. This hall effect chip is therefore ideal to work without application.
+We are implementing a hall effect sensor to make the tracker waterproof and easier to turn on and off. We chose \hyperref[bom:bu52077gwz]{BU52077GWZ} (datasheet: \sbref{app:hardware:BU52077GWZ}). It has a typical operational current of \SI{5}{\micro\ampere} and can operate at a voltage down to \SI{1.65}{\volt}. It has a normal \ac{GPIO} interface and is therefore easy to implement with a simple interrupt on the STM32. This hall effect chip is therefore ideal to work without application.
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.6\textwidth]{figures/Hall.PNG}
-  \caption{Wiring diagram of BU52077GWZ-E2.}
+  \caption{Wiring diagram of BU52077GWZ.}
   \label{fig:schematic:BU52077GWZ}
 \end{figure}
 
@@ -548,7 +555,7 @@ SKY13588-460LF & U3 & QFN-12 & SKY13588-460LF & SKYWORKS & 2.254 \\
 BGA524N6E6327 & U4 & TSNP-6 & BGA 524N6 E6327 & Infineon & 0.286 \\
 XC6220B331MR & U5 & SOT23-5 & XC6220B331MR & TECH PUBLIC & 0.179 \\
 LIS2DE12TR & U6 & LGA-12 & LIS2DE12TR & ST & 0.469 \\
-BU52077GWZ-E2 & U7 & BGA-4 & BU52077GWZ-E2 & ROHM & 0.177 \\
+BU52077GWZ & U7 & BGA-4 & BU52077GWZ & ROHM & 0.177 \\
 \end{tabular}
 \end{table}
 
