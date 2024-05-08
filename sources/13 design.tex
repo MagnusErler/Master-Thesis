@@ -329,18 +329,28 @@ The STM32 and LR1110 communication is through \ac{SPI} (see fig.~\ref{fig:stm32_
 
 The \textit{BUSY} signal is used as a handshake to indicate if the LR1110 is ready to accept a command. Therefore, it is necessary to check the status of \textit{BUSY} before sending a command.
 
-The \textit{EVENT} signal is an output signal of the LR1110. This line signals to the STM32 that the device has an asynchronous event data pending. The event can be \ac{LoRaWAN} stack, \ac{GNSS}, or Wi-Fi events. The STM32 must use the GetEventSize (...) command to determine the event size and GetEvent (...) command to retrieve such data.
+The \textit{EVENT} signal is an output signal of the LR1110. This line signals to the STM32 that the device has an asynchronous event data pending. The event can be \ac{LoRaWAN} stack, \ac{GNSS}, or Wi-Fi events. The STM32 must use the \lstinline[style=C++]{GetEventSize(...)} command to determine the event size and \lstinline[style=C++]{GetEvent(...)} command to retrieve such data.
 The \textit{EVENT} signal stays high until all events are cleared. The STM32 must clear all the events before returning to sleep mode. This prevents the hit from missing the rising edge of the \textit{EVENT} signal when there is a new event. Secondly, this saves several tens of uA of current consumption when the \textit{EVENT} signal is kept low by the LR1110.
+
+Fig.~\ref{fig:fig:event_example} shows an example of a Wi-Fi passive scan transaction. The STM32 sends a command to the LR1110 to scan for Wi-Fi \ac{AP}s. The LR1110 scans the Wi-Fi \ac{AP}s and stores the data in its internal memory. When the scan is complete, the LR1110 sets the \textit{EVENT} signal high to indicate that there is data to be read. The STM32 then reads the data from the LR1110 with \lstinline[style=C++]{GetEventsize(...)} and \lstinline[style=C++]{GetEvent(...)}, which afterwards then clears the \textit{EVENT} signal.
 
 %show example: https://semtech.my.salesforce.com/sfc/p/#E0000000JelG/a/2R000000USsZ/5EPFu4u.9lO9tdwmmsEMyMrllCWczDOVnPoaShaK2mg
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{figures/event_example.png}
+    \includegraphics[width=0.6\textwidth]{figures/event_example.png}
     \caption{Example of Wi-Fi passive scan transaction.}
     \label{fig:event_example}
 \end{figure}
 
+Some \ac{SPI} commands generate an immediatele response by the LR1110, and therefor do not generate any \ac{EVENT} signal. Such as the command \lstinline[style=C++]{RequestTX(...)} as shown in fig.~\ref{fig:event_example_2}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/event_example_2.png}
+    \caption{Example of a transaction which does not generate a \ac{EVENT} signal.}
+    \label{fig:event_example_2}
+\end{figure}
 
 \subsubsection{Write commands to LR1110}
 When executing write commands (see fig.~\ref{fig:write_command}), the LR1110 transmits status registers and interrupt registers to the STM32 through the \textit{MOSI} pin, contingent upon the command opcode and its accompanying arguments. The host initiates by sending a 16-bit opcode (\textit{Op0} and \textit{Op1}), followed by the necessary arguments (\textit{Arg0}, \textit{Arg1}, etc.). Activation of the \textit{BUSY} signal occurs automatically upon the falling edge of the \textit{NSS}. Subsequently, once the LR1110 completes processing the command, the \textit{BUSY} signal is disengaged, signalling readiness to accept another command.
