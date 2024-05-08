@@ -47,17 +47,54 @@ Considerations around the communication protocol and \ac{LoRa} versus protocols 
 \ac{LoRa} refers to the physical layer and the proprietary spread spectrum modulation technique developed by Semtech, while \ac{LoRaWAN} refers to the network layer that defines the communication protocol and system architecture, enabling devices to communicate with \ac{LoRa} gateways and network servers. 
 
 \subsubsubsection*{LoRa}
-LoRa, derived from Chirp Spread Spectrum (CSS) technology, encodes information on radio waves using frequency-modulated chirp pulses, where a chirp is a sinusoidal signal with a changing frequency over time. When illustrated as a function of time over amplitude and time over frequency, a single up looks like this:
+LoRa, derived from Chirp Spread Spectrum (CSS) technology, encodes information on radio waves using frequency-modulated chirp pulses, where a chirp is a sinusoidal signal whose frequencies vary linearly over time. When illustrated in the time- and frequency domain, a chirp looks like this:
 
-
-
-We want go into details about how the technology work, but will describe the major points that influence data rate and power usage.  and  On a 
-
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/linear-chirp-up-signal.png}
+    \caption{Linear up-chirp signal: (a) Time domain representation. The signal's frequency increases linearly as the time passes; (b) The variation of the frequency of the signal that is illustrated in panel (a). Rework from: \url{https://www.researchgate.net/figure/Linear-up-chirp-signal-a-Time-domain-representation-The-signals-frequency-increases_fig4_341373286}}
+    \label{fig:LoRa-upchirp}
+\end{figure}
 
 (\url{https://en.wikipedia.org/wiki/Chirp_spread_spectrum)}
 (\url{https://www.thethingsnetwork.org/docs/lorawan/what-is-lorawan/})
 
-LoRa modulated transmission is robust against disturbances and can be received across great distances.
+We want go into much details about how the technology work, but will stick to describing the major points that influence data rate, power usage and range, which is bandwidth and sweep rate/spreading factor.
+The bandwidth is the frequency ranges which the signal sweeps over. Increasing the
+
+The higher the bandwidth, the higher the data rate (chip rate)
+The lower the bandwidth, the lower the data rate (chip rate)
+
+increasing bandwidth gives a better qualitity signal, but bandwidth is scarse and is restricted. It is restricted to 500 khz, 250 khz and 125 khz.
+In europe; 250 khz and 125 khz.
+
+
+
+
+The higher the spreading factor, the lower the data rate
+The higher the spreading factor, the longer the range
+The higher the spreading factor, the slower the transmission will be
+The lower the spreading factor, the higher the data rate
+The lower the spreading factor, the shorter the range
+The lower the spreading factor, the faster the transmission will be
+
+
+The higher the spreading factor, the more spectrum it “eats”, but the easier it is for the other side to decode the signal. That means you can use the spreading factor to increase the range at which a LoRa signal can still be successfully demodulated. No need for a bigger antenna, or a more powerful amplifier. It’s all just configuration.
+
+Eating spectrum means that if your bandwidth is fixed (which is the case in LoRaWAN networks, and most LoRa networks), the higher the spreading factor you use, the lower the data rate (symbol rate) you get. The higher the spreading factor, the longer the Time on Air (ToA) — the longer your transmission will take.
+
+This is where the real power of LoRa is. You can decide, in software, whether you need more range, more bandwidth, or shorter transmissions (lower battery use).
+
+
+Sweep rate: how fast the sweep changes
+And the change it sweeps over; the bandwidth,
+
+
+The faster the sweep rate, the more information can be passed
+Slow sweep rate. Easy to decode.
+Spreading factor: in eu 7-12.
+
+
 
 
 \ac{LoRaWAN} specifies how data should be transmitted, how end devices authenticate themselves on the network, how messages are acknowledged, and how devices can go into low-power sleep mode to conserve energy.
