@@ -222,14 +222,10 @@ For the main communication of the tracker, the project uses an ultra-low-power A
     \begin{subfigure}{.45\textwidth}
       \centering
       \includegraphics[width=0.7\textwidth]{figures/STM32L476.jpg}
-      %\caption{From above without PointCloud and graph.}
-      \label{fig:stm32l476}
-    \end{subfigure}%
+    \end{subfigure}
     \begin{subfigure}{.45\textwidth}
       \centering
       \includegraphics[width=0.55\textwidth]{figures/LR1110.png}
-      %\caption{From the side without PointCloud and graph.}
-      \label{fig:lr1110}
     \end{subfigure}
     \caption{STM32L476 (left) and LR1110 (right).}
     \label{fig:chips}
@@ -269,7 +265,7 @@ We are implementing a hall effect sensor to make the tracker waterproof and easi
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.7\textwidth]{figures/Hall.PNG}
+  \includegraphics[width=0.6\textwidth]{figures/Hall.PNG}
   \caption{Wiring diagram of BU52077GWZ-E2.}
   \label{fig:schematic:BU52077GWZ}
 \end{figure}
@@ -312,12 +308,10 @@ For communicating with the STM32-chip over \ac{USART} use the \textit{USART2} in
 
 The ST-LINK/V2-1 is connected to the computer through \ac{USB}, and the STM32-chip is powered through the ST-LINK/V2-1. The STM32 is flashed with Visual Studio Code or the STM32CubeProgrammer\footnote{\url{https://www.st.com/en/development-tools/stm32cubeprog.html}}, which is a software tool to flash and debug STM32 microcontrollers. Here the STM32 can be debugged, which is done by setting breakpoints in the code and running the code step by step.
 
-\subsection{Why we chose Transceiver firmware}
+\subsection{Choosing transceiver firmware}
 It would take up to 6 months longer to implement our own \ac{LoRa} stack
 
 \subsection{Establishing communication with LR1110}
-%Here we will describe how we first got in touch with LR1110. A little about the communication with the chip, test commands, how to know it works and maybe a firmware upgrade.
-
 The STM32 and LR1110 communication is through \ac{SPI} (see fig.~\ref{fig:stm32_lr1110_interface}). The LR1110 exposes an \ac{API} which allows the STM32 to communicate with the LR1110 through a set of \ac{SPI} commands and responses.
 
 \begin{figure}[H]
@@ -329,26 +323,23 @@ The STM32 and LR1110 communication is through \ac{SPI} (see fig.~\ref{fig:stm32_
 
 The \textit{BUSY} signal is used as a handshake to indicate if the LR1110 is ready to accept a command. Therefore, it is necessary to check the status of \textit{BUSY} before sending a command.
 
-The \textit{EVENT} signal is an output signal of the LR1110. This line signals to the STM32 that the device has an asynchronous event data pending. The event can be \ac{LoRaWAN} stack, \ac{GNSS}, or Wi-Fi events. The STM32 must use the \lstinline[style=C++]{GetEventSize(...)} command to determine the event size and \lstinline[style=C++]{GetEvent(...)} command to retrieve such data.
-The \textit{EVENT} signal stays high until all events are cleared. The STM32 must clear all the events before returning to sleep mode. This prevents the hit from missing the rising edge of the \textit{EVENT} signal when there is a new event. Secondly, this saves several tens of uA of current consumption when the \textit{EVENT} signal is kept low by the LR1110.
+The \textit{EVENT} signal is an output signal of the LR1110. This line signals to the STM32 that the device has an asynchronous event data pending. The event can be \ac{LoRaWAN} stack, \ac{GNSS}, or Wi-Fi events. The STM32 must use the \lstinline[style=C++]{GetEventSize(...)} command to determine the event size and \lstinline[style=C++]{GetEvent(...)} command to retrieve such data. The \textit{EVENT} signal stays high until all events are cleared. The STM32 must clear all the events before returning to sleep mode. This prevents the hit from missing the rising edge of the \textit{EVENT} signal when there is a new event. Secondly, this saves several of \SI{}{\micro\ampere} of current consumption when the \textit{EVENT} signal is kept low by the LR1110.
 
-Fig.~\ref{fig:fig:event_example} shows an example of a Wi-Fi passive scan transaction. The STM32 sends a command to the LR1110 to scan for Wi-Fi \ac{AP}s. The LR1110 scans the Wi-Fi \ac{AP}s and stores the data in its internal memory. When the scan is complete, the LR1110 sets the \textit{EVENT} signal high to indicate that there is data to be read. The STM32 then reads the data from the LR1110 with \lstinline[style=C++]{GetEventsize(...)} and \lstinline[style=C++]{GetEvent(...)}, which afterwards then clears the \textit{EVENT} signal.
-
-%show example: https://semtech.my.salesforce.com/sfc/p/#E0000000JelG/a/2R000000USsZ/5EPFu4u.9lO9tdwmmsEMyMrllCWczDOVnPoaShaK2mg
+Fig.~\ref{fig:event_example} shows an example of a Wi-Fi passive scan transaction. The STM32 sends a command to the LR1110 to scan for Wi-Fi \ac{AP}s. The LR1110 scans the Wi-Fi \ac{AP}s and stores the data in its internal memory. When the scan is complete, the LR1110 sets the \textit{EVENT} signal high to indicate that there is data to be read. The STM32 then reads the data from the LR1110 with \lstinline[style=C++]{GetEventsize(...)} and \lstinline[style=C++]{GetEvent(...)}, which afterwards then clears the \textit{EVENT} signal.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{figures/event_example.png}
-    \caption{Example of Wi-Fi passive scan transaction.}
+    \includegraphics[width=0.5\textwidth]{figures/event_example.png}
+    \caption{Example of Wi-Fi passive scan transaction. The transactions are read from top to bottom.}
     \label{fig:event_example}
 \end{figure}
 
-Some \ac{SPI} commands generate an immediatele response by the LR1110, and therefor do not generate any \ac{EVENT} signal. Such as the command \lstinline[style=C++]{RequestTX(...)} as shown in fig.~\ref{fig:event_example_2}
+Some \ac{SPI} commands generate an immediate response by the LR1110 and therefore do not generate any \textit{EVENT} signal. Such as the command \lstinline[style=C++]{RequestTX(...)} as shown in fig.~\ref{fig:event_example_2}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{figures/event_example_2.png}
-    \caption{Example of a transaction which does not generate a \ac{EVENT} signal.}
+    \includegraphics[width=0.5\textwidth]{figures/event_example_2.png}
+    \caption{Example of a transaction which does not generate a \textit{EVENT} signal. The transactions are read from top to bottom.}
     \label{fig:event_example_2}
 \end{figure}
 
@@ -409,12 +400,10 @@ What is ultra-low power and what is low power?
 Maybe it won't be easy to write since it is probably an iterative process. We test which methods work best, and then change something until we have found the best method.
 
 
-For a stable power supply, we are using the \ac{LDO} Voltage Regulators \hyperref[bom:xc6220]{XC6220B331MR} (datasheet: \sbref{app:hardware:XC6220}). The chip is a \SI{3.3}{\volt} voltage regulator with a input voltage ranging from \SI{1.5}{\volt} to \SI{5.5}{\volt} and a maximum output current of \SI{1000}{\milli\ampere}. The quiescent current is \SI{0}{\micro\ampere} and the dropout voltage is \SI{150}{\milli\volt}. A voltage regulator is crucial for any battery-powered device.
+For a stable power supply, we are using the \ac{LDO} Voltage Regulators \hyperref[bom:xc6220]{XC6220B331MR} (datasheet: \sbref{app:hardware:XC6220}). The chip is a \SI{3.3}{\volt} voltage regulator with a input voltage ranging from \SI{1.6}{\volt} to \SI{6.0}{\volt} and a maximum output current of \SI{1000}{\milli\ampere}. The quiescent current is \SI{8}{\micro\ampere} and the dropout voltage is around \SI{20}{\milli\volt}. A voltage regulator is crucial for any battery-powered device. It has high power- and low power mode, which means the quiescent current and dropout voltage can be reduced if the device is in low power mode. When the output current is less than \SI{1}{\milli\ampere} (minimum), the quiescent current is reduced to \SI{8}{\micro\ampere}. If the output current becomes \SI{10}{\milli\ampere} (maximum) or more, the mode changes automaticcaly to the high power mode and the chip returns to high speed operation.
 
 \subsection{PCB Design}
 We are using EasyEDA\footnote{\url{https://easyeda.com/}} to design the \ac{PCB} and JLCPCB\footnote{\url{https://jlcpcb.com/}} to manufacture them.
-
-Hopefully, we have discovered which features are necessary to implement geolocation with the LR1110 and an STM32 chip. We can then use that to remove all unnecessary components/functions and create a \ac{PCB} design with as little energy consumption and area as possible.
 
 \subsubsection{Impedance}
 For determining the impedance and maintaining this throughout the \ac{PCB}, the layout of the components and stackup of the \ac{PCB} is important. We chose a 4-layer \ac{PCB} as this is preferable to optimise \ac{RF} \ac{PCB} layout, especially if there is dense routing. 
@@ -434,13 +423,13 @@ Choosing JCLPSB's JLC04101H-7628 Stackup has a dielectric constant of $\kappa = 
     \centering
     \caption{Stackup of JLC04101H-7628 with PCB thickness of \SI{1.0}{\milli\meter}, outer copper weight of \SI{0.4}{\ounce}, and inner copper weight of \SI{0.5}{\ounce}\protect\footnotemark.}
     \label{tab:pcb_stackup}
-    \begin{tabular}{p{4cm}p{4cm}p{4cm}}
+    \begin{tabular}{lll}
     \textbf{Layer} & \textbf{Material Type} & \textbf{Thickness} \\ \hline
     Top Layer & \cellcolor{copper_green}Copper & \SI{0.035}{\milli\meter} \\
     Prepreg & 7628 & \SI{0.2104}{\milli\meter} \\
-    Internal Ground Plane & \cellcolor{copper_green}Copper & \cellcolor{core_yellow}\SI{0.0152}{\milli\meter} \\
-    Core & \cellcolor{core_yellow}Core & \cellcolor{core_yellow}\SI{0.45}{\milli\meter} \\
-    Internal Power Plane & \cellcolor{copper_green}Copper & \cellcolor{core_yellow}\SI{0.0152}{\milli\meter} \\
+    Internal Ground Plane & \cellcolor{copper_green}Copper & \SI{0.0152}{\milli\meter} \\
+    Core & \cellcolor{core_yellow}Core & \SI{0.45}{\milli\meter} \\
+    Internal Power Plane & \cellcolor{copper_green}Copper & \SI{0.0152}{\milli\meter} \\
     Prepreg & 7628 & \SI{0.2104}{\milli\meter} \\
     Bottom Layer & \cellcolor{copper_green}Copper & \SI{0.035}{\milli\meter}
     \end{tabular}
@@ -542,10 +531,6 @@ We have set up requirements for this in the product requirements, so here you ca
 We have probably made several different prototypes. Chalk it up to the theory of prototypes.
 
 \subsection{Cost}
-The cost of producing a tracker.
-
-Include a BOM
-
 LR1110 ordered from DigiKey Denmark\footnote{\url{https://www.digikey.dk/}} where it cost \SI{72.23}{\dkk} per chip. Ordering the rest from JLCPCB costs $\$2$ for the \ac{PCB} and an extra $\$35.61$ for the assembly of the components (5 \ac{PCB}). With shipping ($\$24.60$) and customs duties ($\$24.31$) the total amount is $\$86,52$. With the LR1110 chip, it is around \SI{193}{\dkk}.
 
 The prices of key components are listed below in tab.~\ref{tab:BOM_keycomponents}. The rest of the \ac{BOM} in further detail can be viewed in app.~\ref{app:BOM}.
@@ -567,46 +552,42 @@ BU52077GWZ-E2 & U7 & BGA-4 & BU52077GWZ-E2 & ROHM & 0.177 \\
 \end{tabular}
 \end{table}
 
-\subsection{Uplink communication}
+\subsection{LoRaWAN communication}
+Sending data from the Wi-Fi and \ac{GNSS} scans to the cloud is done through \ac{LoRaWAN}. The data is sent to the \ac{LoRaWAN} network server, which then forwards the data to the application server. The application server can then present the data in a user-friendly way. Sending the payload consumes a lot of power, so we have implemented power-saving features to only send the payload when the device has moved.
 
-If the accelerometer has not detected any movement in th eperiode specified in the Wi-Fi or GNSS scan period, the device does not send the \ac{MAC} addresses of the Wi-Fi \ac{AP}s or \ac{GNSS} satellites. Instead, it goes into sleep again and checks again after either the Wi-Fi or \ac{GNSS} scan period.
+Suppose the accelerometer has not detected any movement in the period specified in the Wi-Fi or GNSS scan period. In that case, the device does not send the \ac{MAC} addresses of the Wi-Fi \ac{AP}s or \ac{GNSS} satellites. This would mean that the device has not moved and an additional scan for location is not necessary. Instead, it goes into sleep and checks again after either the Wi-Fi or \ac{GNSS} scan period has ended.
 
-
-
-If using Wi-Fi the device sends the \ac{MAC} addresses as a payload on \ac{FPORT} 197. E.g. (hex-values) 
-
-\texttt{00 2A 10 F4 A7 90 00 2A 10 11 33 33 00 2A 10 11 33 31 AA 8A FF 70 7E ED 6C 8B D3 CC F7 E0\textsubscript{(16)}} is of \ac{MAC} address:\\
-\texttt{00 2A 10 F4 A7 90\textsubscript{(16)}},\\
-\texttt{00 2A 10 11 33 33\textsubscript{(16)}},\\
-\texttt{00 2A 10 11 33 31\textsubscript{(16)}},\\
-\texttt{AA 8A FF 70 7E ED\textsubscript{(16)}}, and\\
-\texttt{6C 8B D3 CC F7 E0\textsubscript{(16)}}.
+\subsubsection{Uplink communication}
+If using Wi-Fi, each found\ac{MAC} address is appended and sent as one long payload on \ac{FPORT} 197. E.g. \texttt{00 2A 10 F4 A7 90 AA 8A FF 70 7E ED 6C 8B D3 CC F7 E0\textsubscript{(16)}} is a combination of \ac{MAC} address: \texttt{00 2A 10 F4 A7 90\textsubscript{(16)}}, \texttt{AA 8A FF 70 7E ED\textsubscript{(16)}}, and \texttt{6C 8B D3 CC F7 E0\textsubscript{(16)}}.
 
 If using \ac{GNSS} the device sends XXX as a \ac{NAV} on \ac{FPORT} 198 or 192 depending on how many \ac{SV}'s the device can see
 
+Setting it to \lstinline[style=C++]{SMTC_MODEM_SEND_MODE_STORE_AND_FORWARD} instead of normal \lstinline[style=C++]{SMTC_MODEM_SEND_MODE_UPLINK} will store the data in the LR1110 and send it when the device is in range of a \ac{LoRaWAN} gateway.
 
-% Try to use SMTC_MODEM_SEND_MODE_STORE_AND_FORWARD instead of normal SMTC_MODEM_SEND_MODE_UPLINK
+Tab.~\ref{tab:uplink_commands} shows the uplink commands that can be sent to the device.
 
 \begin{table}[H]
 \centering
 \caption{Uplink commands.}
 \label{tab:uplink_commands}
-\begin{tabular}{l|l|p{8cm}|l}
-\ac{FPORT} & Payload & Usage & Payload \\ \hline
-3 & & Get temperature and battery voltage & E.g. $26.4$ and $3.3$ \\
-4 & & Get uptime & \\
-5 & & Get firmware version & \\
-6 & & Get \ac{JoinEUI} & \\
-7 & & Get \ac{DevEUI} & \\
-199 & & LoRa Cloud requests ----- DM port ----- Stream port  & \\
-201 & & fragport  & \\
+\begin{tabular}{l|l|l}
+\ac{FPORT} & Usage & Payload \\ \hline
+3 & Get temperature, battery voltage, and uptime & E.g. $26.4$ and $3.3$ \\
+5 & Get firmware version & \\
+6 & Get \ac{JoinEUI} & \\
+7 & Get \ac{DevEUI} & \\
+199 & LoRa Cloud requests (aka DM port or Stream port) & \\
+201 & fragport & \\
 \end{tabular}
 \end{table}
 
+The power consumption in sending 1 byte or 4 bytes over \ac{LoRaWAN} is not substantial
 
-\subsection{Downlink communication}
 
-Data from \ac{GNSS} can either be send with \ac{GNSS} or \ac{GNSSNG}. \ac{GNSSNG} is used for multiple NAV messages.
+\subsubsection{Downlink communication}
+Data from \ac{GNSS} can either be sent with \ac{GNSS} or \ac{GNSSNG}. \ac{GNSSNG} is used for multiple NAV messages.
+
+Tab.~\ref{tab:downlink_commands} shows the downlink commands that can be sent to the device.
 
 \begin{table}[H]
 \centering
@@ -640,6 +621,9 @@ Temperature
 Battery status
 
 \subsection{Application}
+
+ngrok\footnote{\url{https://ngrok.com/}}
+
 One predominant requirement derived from our interviews was the need for a simple setup process for our device and an easy-to-use application for presenting the data.
 Despite the growing adoption of \ac{LoRaWAN}-enabled devices, network setup remains considerably more intricate than devices that utilise Wi-Fi or cellular networks for data transmission which mostly work out of the box. Wi-Fi devices merely require access to an access point and a network password, and cellular devices only necessitate a SIM card, where the technical part of joining the network is left to the network provider. \ac{LoRaWAN}-enabled device on the other hand entails several additional considerations. You need to think about provisioning, choice of network and network coverage, network protocol version and regional requirements.
 
@@ -672,6 +656,8 @@ Setup for our application:
 6.
 7.
 8.
+
+If a new location has been found but it is close to the previous lcoation (e.g. radius of \SI{5}{\meter}) that location will not be shown on the map, but however updated as the device has been seen.
 
 Future work:
 Låst til TheThingsNetwork
