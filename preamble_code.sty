@@ -1,0 +1,247 @@
+
+\definecolor{lst_white}{rgb}{0.98,0.98,0.98}
+\definecolor{lst_green}{rgb}{0,0.6,0}
+
+%Coloring numbers inside code comments
+\newcommand\digitstyle{\color{black}}
+\makeatletter
+\newcommand{\ProcessDigit}[1]
+{%
+  \ifnum\lst@mode=\lst@Pmode\relax%
+   {\digitstyle #1}%
+  \else
+    #1%
+  \fi
+}
+\makeatother
+
+%%% BASH
+\lstdefinestyle{bash}{
+    language        =bash,
+    basicstyle      =\normalsize\linespread{1}\mlttfamily,
+    backgroundcolor	=\color{lst_white},  
+    emphstyle		=\bfseries\color{black},
+    keywordstyle    =\color{black},
+    stringstyle     =\color{black},
+    breaklines      =true,
+    postbreak       =\mbox{\textcolor{red}{$\hookrightarrow$}\space},
+    showspaces      =false,
+    showstringspaces=false,
+    showtabs        =false,
+    commentstyle    =\color{lst_green}\ttfamily,
+    morecomment     =[s]{<}{>}, % Define < and > as starting and ending a comment
+    xleftmargin     =0.15cm,
+    xrightmargin    =0.15cm,
+    frame           =single,
+    framexleftmargin=0cm,
+    numberstyle     ={\scriptsize\color{black}},
+    numbers         =none,
+    moredelim=**[is][\color{orange}]{@}{@}
+}
+
+%%% BASH with footnotesize as font size
+\lstdefinestyle{bash_footnotesize}{
+    language        =bash,
+    basicstyle      =\footnotesize\linespread{1}\mlttfamily,
+    backgroundcolor	=\color{lst_white},  
+    emphstyle		=\bfseries\color{black},
+    keywordstyle    =\color{black},
+    stringstyle     =\color{black},
+    breaklines      =true,
+    postbreak       =\mbox{\textcolor{red}{$\hookrightarrow$}\space},
+    showspaces      =false,
+    showstringspaces=false,
+    showtabs        =false,
+    commentstyle    =\color{red}\ttfamily,
+    xleftmargin     =0.15cm,
+    xrightmargin    =0.15cm,
+    frame           =single,
+    framexleftmargin=0cm,
+    numberstyle     ={\scriptsize\color{black}},
+    numbers         =none
+}
+
+%%% BASH with scriptsize as font size
+\lstdefinestyle{bash_scriptsize}{
+    language        =bash,
+    basicstyle      =\scriptsize\linespread{1}\mlttfamily,
+    backgroundcolor	=\color{lst_white},  
+    emphstyle		=\bfseries\color{black},
+    keywordstyle    =\color{black},
+    stringstyle     =\color{black},
+    breaklines      =true,
+    postbreak       =\mbox{\textcolor{red}{$\hookrightarrow$}\space},
+    showspaces      =false,
+    showstringspaces=false,
+    showtabs        =false,
+    commentstyle    =\color{red}\ttfamily,
+    xleftmargin     =0.15cm,
+    xrightmargin    =0.15cm,
+    frame           =single,
+    framexleftmargin=0cm,
+    numberstyle     ={\scriptsize\color{black}},
+    numbers         =none
+}
+
+%%% C++
+\lstdefinestyle{C++}{
+    language        =C++,
+    basicstyle      =\footnotesize\linespread{1}\mlttfamily,
+    backgroundcolor	=\color{lst_white},  
+    emph			={true, false},%        keywords to emphasize
+    emphstyle		=\bfseries\color{blue},
+    keywordstyle    =\color{blue},
+    stringstyle     =\color{orange},
+    breaklines      =true,
+    postbreak       =\mbox{\textcolor{red}{$\hookrightarrow$}\space},
+    showstringspaces=false,
+    commentstyle    =\color{red}\ttfamily,
+    xleftmargin     =0cm,
+    frame           =single,
+    framexleftmargin=0cm,
+    numbers         =left,
+    numberstyle     ={\scriptsize\color{black}},
+    numbersep       =0.5cm
+}
+
+%%% JSON
+\lstdefinelanguage{json}{
+    basicstyle      =\normalfont\ttfamily,
+    numbers         =left,
+    numberstyle     =\scriptsize,
+    stepnumber      =1,
+    numbersep       =8pt,
+    showstringspaces=false,
+    breaklines      =true,
+    commentstyle    =\color{red}\ttfamily,
+    morecomment     =[l]{//}, % Define // as starting a comment
+    %stringstyle     =\color{orange},
+    %morestring      =[s]{"}{"} % Define /* and */ as starting and ending a comment
+    frame           =single,
+    backgroundcolor =\color{lst_white},
+    literate=
+      {\{}{{{\color{orange}{\{}}}}{1}
+      {\}}{{{\color{orange}{\}}}}}{1}
+      {[}{{{\color{orange}{[}}}}{1}
+      {]}{{{\color{orange}{]}}}}{1},
+}
+
+%%% Python
+\lstdefinestyle{python}{
+    language        =python,
+    basicstyle      =\footnotesize\linespread{1}\mlttfamily,
+    backgroundcolor	=\color{lst_white},  
+    emph			={True, False, while, if, else},%        keywords to emphasize
+    emphstyle		=\bfseries\color{blue},
+    keywordstyle    =\color{black},
+    stringstyle     =\color{orange},
+    breaklines      =true,
+    postbreak       =\mbox{\textcolor{red}{$\hookrightarrow$}\space},
+    showspaces      =false,
+    showstringspaces=false,
+    showtabs        =false,
+    commentstyle    =\color{red}\ttfamily,
+    xleftmargin     =0.8cm,
+    xrightmargin    =0.15cm,
+    frame           =single,
+    framexleftmargin=0cm,
+    numberstyle     ={\scriptsize\color{black}},
+    numbers         =left
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Line and number break in code
+
+\newcommand*\startnumber[1]{    % for starting line numbers
+	\setcounter{lstnumber}{\numexpr#1-1\relax}%
+}
+
+\newcommand*\stopnumber{    % for stopping line numbers
+	\startnumber{-2}%
+}
+
+\makeatletter
+\let\orig@lstnumber=\thelstnumber
+
+\newcommand\lstsetnumber[1]{\gdef\thelstnumber{#1}}
+\newcommand\lstresetnumber{\global\let\thelstnumber=\orig@lstnumber}
+\makeatother
+
+% Line break in listing at underscores (otherwise use \raggedright before the listing
+\lstset{
+  literate={\_}{}{0\discretionary{\_}{}{\_}}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Print HEX and other types of numbers
+
+\ExplSyntaxOn
+\NewDocumentCommand{\printnumber}{O{}m}
+ {
+  \group_begin:
+  \keys_set:nn { lauhub/printnumber } { #1 }
+  \lauhub_print_number:n { #2 }
+  \group_end:
+ }
+
+\tl_new:N \l_lauhub_number_tl
+\tl_new:N \l_lauhub_output_tl
+\int_new:N \l__lauhub_temp_int
+
+\keys_define:nn { lauhub/printnumber }
+ {
+  padding  .int_set:N  = \l_lauhub_length_int,
+  padding  .initial:n  = 0,
+  radix    .int_set:N  = \l_lauhub_radix_int,
+  radix    .initial:n  = 10,
+  grouping .int_set:N  = \l_lauhub_grouping_int,
+  grouping .initial:n  = 3,
+  convert  .bool_set:N = \l_lauhub_convert_bool,
+  convert  .default:n  = true,
+  convert  .initial:n  = false,
+ }
+
+\cs_new_protected:Npn \lauhub_print_number:n #1
+ {
+  \tl_clear:N \l_lauhub_output_tl
+  \bool_if:NTF \l_lauhub_convert_bool
+   {
+    \tl_set:Nx \l_lauhub_number_tl { \int_to_Base:nn { #1 } { \l_lauhub_radix_int } }
+   }
+   {
+    \tl_set:Nn \l_lauhub_number_tl { #1 }
+   }
+  \prg_replicate:nn { \l_lauhub_length_int - \tl_count:N \l_lauhub_number_tl }
+   {
+    \tl_put_left:Nn \l_lauhub_number_tl { 0 }
+   }
+  \int_zero:N \l__lauhub_temp_int
+  \tl_map_inline:Nn \l_lauhub_number_tl
+   {
+    \tl_put_right:Nn \l_lauhub_output_tl { ##1 }
+    \int_incr:N \l__lauhub_temp_int
+    \bool_if:nT
+     {
+      \int_compare_p:n
+       {
+        \int_mod:nn { \l__lauhub_temp_int } { \l_lauhub_grouping_int } == 0
+       }
+      &&
+      \int_compare_p:n
+       {
+        \l__lauhub_temp_int < \l_lauhub_length_int
+       }
+     }
+     {
+      \tl_put_right:Nn \l_lauhub_output_tl { \, }
+     }
+   }
+  \ensuremath
+   {
+    \mathrm{ \tl_use:N \l_lauhub_output_tl } \sb { ( \int_to_arabic:n { \l_lauhub_radix_int } ) }
+   }
+ }
+\ExplSyntaxOff
+
+
+

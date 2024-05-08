@@ -1,0 +1,50 @@
+\section{Testing and validation of the design } \label{sec:testing}
+
+The design and its implementation have been thoroughly tested.
+
+\section{Possible test scenarios}
+\begin{enumerate}
+    \item Test if it uses less power to have a timer on STM that turns the accelerometer on and off
+    \item Which temperature sensor uses less power?
+    \item VBAT can be measured from STM and LR-chip
+    \item Does the accelerometer use more power when reading temp?
+    \item Send VBat and temp with each upload to TTN?
+    \item How much power does it use to set all registers at once or one after one in the accelerometer
+    \item Does it make sense to use power-down mode instead of 1hz?
+\end{enumerate}
+
+\subsection{Testing method - Statistics}
+Method section on testing. Brief statistics
+
+\subsection{Accuracy}
+\ac{GNSS} accuracy is measured in meters and describes the difference between the physical location of the device with the location that the device reports.
+How accurate are the different methods? What is our uncertainty?
+
+Testing the accuracy is done by looking at the accuracy value of the GPS module, and performing tests where we compare the device's physical location with the location that the device reports.
+
+\subsection{Power consumption}
+How much power the device uses in the different modes
+
+We used the Power Profiler Kit II\footnote{\url{https://www.nordicsemi.com/Products/Development-hardware/Power-Profiler-Kit-2}} from Nordic Semiconductor to measure the device's power consumption.
+
+Power Profiler v4.0.0
+
+To visualise the data we used the app Power Profiler from nRF Connect for Desktop\footnote{\url{https://www.nordicsemi.com/Products/Development-tools/nRF-Connect-for-Desktop}} which also is a tool from Nordic Semiconductor.
+
+\subsection{Results according to design/performance criteria}
+How does the product meet our design criteria
+
+\subsection{LTE-M vs NB-IOT vs LoRaWAN}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lll}
+              & LoRaWAN    & NB-IoT    \\
+TX Current    & 24-44 mA   & 74-220 mA \\
+RX Current    & 12 mA      & 46 mA     \\
+Idle Current  & 1.4 mA     & 6 mA      \\
+Sleep Current & 0.1 microA & 3 microA 
+\end{tabular}
+\end{table}
+Kilde: \url{https://www3.cs.stonybrook.edu/~mdasari/courses/cse570/lora.pdf}
+

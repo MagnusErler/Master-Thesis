@@ -1,0 +1,201 @@
+\usepackage{acro}
+\usepackage{longtable}
+\usepackage{array}
+
+\NewAcroTemplate[list]{LongtableForeign} {
+    \AcroNeedPackage {array,longtable}
+    \acronymsmapF {
+        \AcroAddRow {
+            \acrowrite {short}
+            \acroifT {alt} { / } \acrowrite {alt}
+            &
+            \acrowrite {list}
+            \tabularnewline
+        }
+    }
+    { \AcroRerun }  
+    \acroheading
+    \acropreamble
+    \par \noindent
+    \begin {longtable} {>{\bfseries}lp{.7\linewidth}}
+    \AcronymTable
+    \end {longtable}
+}
+\acsetup{list/template = LongtableForeign}%
+
+
+
+
+\DeclareAcronym{C/N0}{
+  short=C/N0,
+  long=\textbf{C}arrier-to-\textbf{N}oise Density Ratio
+}
+\DeclareAcronym{AP}{
+  short=AP,
+  long=\textbf{A}ccess \textbf{P}oint
+}
+\DeclareAcronym{API}{
+  short=API,
+  long=\textbf{A}pplication \textbf{P}rogramming \textbf{I}nterface
+}
+\DeclareAcronym{BLE}{
+  short=BLE,
+  long=\textbf{B}luetooth \textbf{L}ow \textbf{E}nergy
+}
+\DeclareAcronym{BOM}{
+  short=BOM,
+  long=\textbf{B}ill \textbf{o}f \textbf{M}aterials
+}
+\DeclareAcronym{DevEUI}{
+  short=DevEUI,
+  long=\textbf{Dev}ice \textbf{E}xtended \textbf{U}nique \textbf{I}dentifier
+}
+\DeclareAcronym{EMC}{
+  short=EMC,
+  long=\textbf{E}lectro\textbf{M}agnetic \textbf{C}ompatibility
+}
+\DeclareAcronym{FPORT}{
+  short=FPORT,
+  long=\textbf{F}rame \textbf{Port}
+}
+\DeclareAcronym{GCPW}{
+  short=GCPW,
+  long=\textbf{G}rounded \textbf{C}o\textbf{p}lanar \textbf{W}aveguide
+}
+\DeclareAcronym{GNSS}{
+  short=GNSS,
+  long=\textbf{G}lobal \textbf{N}avigation \textbf{S}atellite \textbf{S}ystem
+}
+\DeclareAcronym{GNSSNG}{
+  short=GNSSNG,
+  long=\textbf{G}lobal \textbf{N}avigation \textbf{S}atellite \textbf{S}ystem \textbf{N}AV \textbf{G}roup
+}
+\DeclareAcronym{GPIO}{
+  short=GPIO,
+  long=\textbf{G}eneral-\textbf{P}urpose \textbf{I}nput/\textbf{O}utput
+}
+\DeclareAcronym{GPS}{
+  short=GPS,
+  long=\textbf{G}lobal \textbf{P}ositioning \textbf{S}ystem
+}
+\DeclareAcronym{GSM}{
+  short=GSM,
+  long=\textbf{G}lobal \textbf{S}ystem for \textbf{M}obile Communication
+}
+\DeclareAcronym{I2C}{
+  short=I\textsuperscript{2}C,
+  long=\textbf{I}nter-\textbf{I}ntegrated \textbf{C}ircuit
+}
+\DeclareAcronym{IDE}{
+  short=IDE,
+  long=\textbf{I}ntegrated \textbf{D}evelopment \textbf{E}nvironment
+}
+\DeclareAcronym{IOT}{
+  short=IOT,
+  long=\textbf{I}nternet \textbf{o}f \textbf{T}hings
+}
+\DeclareAcronym{JoinEUI}{
+  short=JoinEUI,
+  long=\textbf{Join} \textbf{E}xtended \textbf{U}nique \textbf{I}dentifier
+}
+\DeclareAcronym{LDO}{
+  short=LDO,
+  long=\textbf{L}ow \textbf{D}rop-\textbf{o}ut 
+}
+\DeclareAcronym{LED}{
+  short=LED,
+  long=\textbf{L}ight-\textbf{E}mitting \textbf{D}iode 
+}
+\DeclareAcronym{LoRa}{
+  short=LoRa,
+  long=\textbf{Lo}ng \textbf{Ra}nge
+}
+\DeclareAcronym{LoRaWAN}{
+  short=LoRaWAN,
+  long=\textbf{Lo}ng \textbf{Ra}nge/\textbf{W}ide-\textbf{A}rea-\textbf{N}etwork
+}
+\DeclareAcronym{LPWAN}{
+  short=LPWAN,
+  long=\textbf{L}ow-\textbf{P}ower \textbf{W}ide-\textbf{A}rea \textbf{N}etwork
+}
+\DeclareAcronym{MAC}{
+  short=MAC,
+  long=\textbf{M}edia \textbf{A}ccess \textbf{C}ontrol
+}
+\DeclareAcronym{MISO}{
+  short=MISO,
+  long=\textbf{M}aster \textbf{I}n \textbf{S}lave \textbf{O}ut
+}
+\DeclareAcronym{MOSI}{
+  short=MOSI,
+  long=\textbf{M}aster \textbf{O}ut \textbf{S}lave \textbf{I}n
+}
+\DeclareAcronym{NAV}{
+  short=NAV,
+  long=\textbf{Nav}igation Message
+}
+\DeclareAcronym{NIC}{
+  short=NIC,
+  long=\textbf{N}etwork \textbf{I}nterface \textbf{C}ontroller
+}
+\DeclareAcronym{PCB}{
+  short=PCB,
+  long=\textbf{P}rinted \textbf{C}ircuit \textbf{B}oard
+}
+\DeclareAcronym{RF}{
+  short=RF,
+  long=\textbf{R}adio \textbf{F}requency
+}
+\DeclareAcronym{SCK}{
+  short=SCK,
+  long=\textbf{S}erial \textbf{C}loc\textbf{k}
+}
+\DeclareAcronym{SF}{
+  short=SF,
+  long=\textbf{S}preading \textbf{F}actors
+}
+\DeclareAcronym{SS}{
+  short=SS,
+  long=\textbf{S}lave \textbf{S}elect
+}
+\DeclareAcronym{SSID}{
+  short=SSID,
+  long=\textbf{S}ervice \textbf{S}et \textbf{Id}entifier
+}
+\DeclareAcronym{SPI}{
+  short=SPI,
+  long=\textbf{S}erial \textbf{P}eripheral \textbf{I}nterface,
+}
+\DeclareAcronym{SV}{
+  short=SV,
+  long=\textbf{S}pace \textbf{V}ehicle ,
+}
+\DeclareAcronym{SWD}{
+  short=SWD,
+  long=\textbf{S}erial \textbf{W}ire \textbf{D}ebug,
+}
+\DeclareAcronym{TCXO}{
+  short=TCXO,
+  long=\textbf{T}emperature \textbf{C}ompensated \textbf{C}rystal \textbf{O}scillator,
+}
+\DeclareAcronym{UART}{
+  short=UART,
+  long=\textbf{U}niversal \textbf{A}synchronous \textbf{R}eceiver / \textbf{T}ransmitter
+}
+\DeclareAcronym{USART}{
+  short=USART,
+  long=\textbf{U}niversal \textbf{S}ynchronous \& \textbf{A}synchronous \textbf{R}eceiver / \textbf{T}ransmitter
+}
+\DeclareAcronym{USB}{
+  short=USB,
+  long=\textbf{U}niversal \textbf{S}erial \textbf{B}us
+}
+\DeclareAcronym{UWB}{
+  short=UWB,
+  long=\textbf{U}ltra-\textbf{W}ide\textbf{b}and
+}
+\DeclareAcronym{WSL}{
+  short=WSL,
+  long=\textbf{W}indows \textbf{S}ubsystem for \textbf{L}inux
+}
+

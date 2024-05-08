@@ -1,0 +1,123 @@
+\iffalse
+\begin{table}[H]
+\centering
+\caption{Gantt schedule.}
+\label{tab:rosNode}
+\begin{tabular}{p{0.30\textwidth}
+!{\vrule width 0.4mm}p{0.0013\textwidth}*{3}{|p{0.0013\textwidth}}
+!{\vrule width 0.4mm}p{0.0013\textwidth}*{3}{|p{0.0013\textwidth}}
+!{\vrule width 0.4mm}p{0.0013\textwidth}*{3}{|p{0.0013\textwidth}}
+!{\vrule width 0.4mm}p{0.0013\textwidth}*{3}{|p{0.0013\textwidth}}
+!{\vrule width 0.4mm}p{0.0013\textwidth}*{3}{|p{0.0013\textwidth}}
+!{\vrule width 0.4mm}p{0.0013\textwidth}*{3}{|p{0.0013\textwidth}}
+|}
+% The top line
+\textbf{Month} 
+            & \multicolumn{4}{c!{\vrule width 0.4mm}}{Jan} 
+            & \multicolumn{4}{c!{\vrule width 0.4mm}}{Feb} 
+            & \multicolumn{4}{c!{\vrule width 0.4mm}}{Mar} 
+            & \multicolumn{4}{c!{\vrule width 0.4mm}}{Apr} 
+            & \multicolumn{4}{c!{\vrule width 0.4mm}}{May} 
+            & \multicolumn{4}{c|}{June} \\
+% The second line, with its five years of four quarters
+%\rpt[5]{& 1 & 2 & 3 & 4} \\
+\hline
+% using the on macro to fill in twenty cells as `on'
+Setting up development environment        \offr[3] \on[2] \off[19]\\
+\hline
+Establishing contact with the LR1110 chip    \offr[3] \on[3] \off[18]\\
+\hline
+Write status report    \offr[3] \off[21] \\
+\hline
+Exploring LR1110 commands    \offr[3] \off[21] \\
+\hline
+Reading up on WiFi \& GNSS tracking    \offr[3] \off[21] \\
+\hline
+Write theory section on WiFi, GNSS \& SPI   \offr[3] \off[21] \\
+\hline
+Implement WiFi scanner     \offr[3] \off[21] \\
+\hline
+Implement LoRaWAN     \offr[3] \off[21] \\
+\hline
+Implement Satellite scanner     \offr[3] \off[21] \\
+\hline
+Write section about tracking   \offr[3] \off[21] \\
+\hline
+Investigate power use    \offr[3] \off[21] \\
+\hline
+Write section about initial power use    \offr[3] \off[21] \\
+\hline
+Discuss product requirements with potential users    \offr[3] \off[21] \\
+\hline
+Put together product requirements    \offr[3] \off[21] \\
+\hline
+Write section about product requirements    \offr[3] \off[21] \\
+\hline
+Design product according to product requirements    \offr[3] \off[21] \\
+\hline
+Write product development section    \offr[3] \off[21] \\
+\hline
+Test product according to product requirements    \offr[3] \off[21] \\
+\hline
+Finalise report in LaTeX    \offr[3] \off[21] \\
+\hline
+Beautify report    \offr[3] \off[21] \\
+\hline
+% using the on macro followed by the off macro
+Defence preparation     \offr[3] \off[16] \on[5]\\
+\hline
+% The mbox prevent packages from being hyphenated
+% The multicolumn produces no vertical guides within the columns it spans, but
+% does put one at the end to complete the right-hand edge of the table
+\end{tabular}
+\end{table}
+\fi
+
+%Proptype development
+%Proptype testing
+%Techinal report
+
+
+\begin{landscape}
+    %\subsection*{Timeschedule}
+    \Large{\textbf{Timeschedule}}
+    \begin{table}[H]
+    \tiny
+    \centering
+    \caption[Timeschedule shown as a Gantt chart]{\footnotesize{Timeschedule shown as a Gantt chart. The tasks responsible are divided by colour; \textcolor{blue!90}{blue for both}, \textcolor{green!90}{green for Christoffer}, and \textcolor{red!90}{red for Magnus}.}}
+    \begin{tabular}{|p{5.0cm}|*{23}{p{0.3cm}|}}
+    \hline
+    \textbf{Month} & \multicolumn{1}{c}{\textbf{Jan}} & \multicolumn{4}{c}{\textbf{Feb}} & \multicolumn{5}{c}{\textbf{March}} & \multicolumn{4}{c}{\textbf{April}} & \multicolumn{4}{c}{\textbf{May}} & \multicolumn{5}{c|}{\textbf{June}} \\ \hline
+    Week & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 & 16 & 17 & 18 & 19 & 20 & 21 & 22 & 23 & 24 & 25 & 26 \\ \hline
+    \multicolumn{24}{c}{\textbf{Planning}} \\ \hline
+    Set up development environment                      & \ccellThree{blue} & & & & & & & & & & & & & & & & & & & & \\ \hline
+    Implement connection with the LR1110 chip           & & \cellThree{red} & & & & & & & & & & & & & & & & & & & \\ \hline
+    Write status report                                 & & & \cellThree{blue} & & & & & & & & & & & & & & & & & & \\ \hline
+    \multicolumn{24}{c}{\textbf{Litterateur review and research}} \\ \hline
+    Explore LR1110 commands                             & & & & \cellTwo{blue} & & & & & & & & & & & & & & & & & & \\ \hline
+    Read about WiFi and GNSS tracking                   & & & & & \cellTwo{blue} & & & & & & & & & & & & & & & & & \\ \hline
+    Write section on WiFi, GNSS, LoRaWAN and SPI        & & & & & \cellTwo{white} & & & & & & & & & & & & & & & & & \\ \hline
+    \multicolumn{24}{c}{\textbf{Prototype development}} \\ \hline
+    Implement WiFi scanner                              & & & & & \cellFour{white} & & & & & & & & & & & & & & & \\ \hline
+    Implement LoRaWAN                                   & & & & & \cellFour{white} & & & & & & & & & & & & & & & \\ \hline
+    Implement Satellite scanner                         & & & & & \cellFour{white} & & & & & & & & & & & & & & & \\ \hline
+    Write section about tracking                        & & & & & & \cellThree{white} & & & & & & & & & & & & & & & \\ \hline
+    Design product according to product requirement     & & & & & & & & & & & \CellFive{white} & & & & & & & & \\ \hline
+    \multicolumn{24}{c}{\textbf{Design requirements}} \\ \hline
+    Short market analysis/overview   & & & & & & & \cellOne{white} & & & & & & & & & & & & & & & & \\ \hline
+    Brainstorm use cases   & & & & & & & \cellOne{white} & & & & & & & & & & & & & & & & \\ \hline
+    Write initial design requirements   & & & & & & & \CellTwo{white} & & & & & & & & & & & & & & & \\ \hline
+    Discuss product requirements with potential users   & & & & & & & & \cellTwo{white} & & & & & & & & & & & & & & \\ \hline
+    Put together product requirements   & & & & & & & & & \cellTwo{white} & & & & & & & & & & & & & \\ \hline
+    Write section about product requirements            & & & & & & & & & & \cellOne{white} & & & & & & & & & & & & & \\ \hline
+    \multicolumn{24}{c}{\textbf{Prototype testing}} \\ \hline
+    Test product according to product requirements      & & & & & & & & & & & & & & & \CellFour{white} & & & & & \\ \hline
+    \multicolumn{24}{c}{\textbf{Technical report}} \\ \hline
+    Finalise report in LaTeX                            & & & & & & & & & & & & & & & & & & \cellFour{blue} & & \\ \hline
+    Proofreading                                        & & & & & & & & & & & & & & & & & & & & & & \cellOne{blue} & \\ \hline
+    Transfer report to InDesign                         & & & & & & & & & & & & & & & & & & & & & \cellTwo{green} & \\ \hline
+    Prepare for defence                                 & & & & & & & & & & & & & & & & & & & & & & \cellTwo{blue} \\ \hline
+    \end{tabular}
+    \normalsize
+    \end{table}
+\end{landscape}

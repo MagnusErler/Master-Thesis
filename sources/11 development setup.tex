@@ -1,0 +1,98 @@
+\section{Development setup} \label{sec:dev-setup}
+This section summarises guidelines for setting up an efficient developing environment for coding, flashing and debugging the STM32 chip using Visual Studio Code on both Linux and Windows. For a more elaborate guide see appendix \ref{app:devsetup}.
+
+\subsection{Development prerequisites}
+On both Windows and Linux start by cloning the code from GitHub: \url{https://github.com/MagnusErler/WiFiLocationTracker}
+
+\textbf{Windows:}
+If working on Windows\footnote{Windows Subsystem for Linux \ac{WSL} can not be used, as peripheral access (USB access) is not implemented in WSL2}, the following programs are needed:
+\begin{itemize}
+    \item CubeMX \sbref{app:software:stm32cubemx}
+    \item OpenOCD \sbref{app:software:openocd}
+    \item Visual Studio Code \sbref{app:software:vsc}
+    \item Git (download as zip) \sbref{app:software:git}
+    \item Arm GNU Toolchain (download as zip) \sbref{app:software:arm_toolchain}
+    \item Package manager 
+    \item Node.js
+\end{itemize}
+
+And the following binaries:
+\begin{itemize}
+    \item Make for Windows with dependencies \sbref{app:software:make}
+\end{itemize}
+
+\textbf{Linux:}
+Suppose working on Linux CubeMX as needed. Maybe more.
+
+software installations will be done through Linux's inbuilt package manager, and no program downloads are necessary.
+
+\subsection{Installation guide}
+
+\textbf{Windows:}
+\begin{enumerate}
+    \item Download all of the files, install VSCode and CubeMX and unpack the rest to a folder of your choice.
+    \item Add paths for Arm GNU Toolchain, Make, OpenOCD and Git to system environment variables.
+    \item Compile program using command \lstinline[style=bash]{make} in a terminal.
+    \item Add openocd flash command to the newly created \lstinline[style=bash]{Makefile} using the stlink interface and with \textit{verify, reset, exit} as parameters.
+ \end{enumerate}
+
+\textbf{Linux:}
+\begin{enumerate}
+    \item Download and install CubeMX
+\end{enumerate}
+INDSÆT ENUMERATE OM HVORDAN MAN GØR PÅ LINUX
+
+\subsection{Visual Studio Code integration}
+This project's preferred \ac{IDE} is Visual Studio Code \sbref{app:software:vsc}. To integrate the project open the newly cloned repository and, if in Windows, run in the terminal \lstinline[style=bash]{wsl} to start performing like a Linux machine.
+
+The compiling of the project is based on a simple makefile and can be compiled with:
+\begin{lstlisting}[style=bash]
+make
+make -f CustomeNameMakefile     # used for custom names
+\end{lstlisting}
+If no error appears, a hex file is created inside the newly created folder (\lstinline[style=bash]{build\VSC_win.hex}) and can be flashed to the STM32 chip with \lstinline[style=bash]{make flash}.
+
+For debugging, install Cortex-Debug \sbref{app:software:cortex_debug} in the Extension Marketplace.
+
+Create a new folder called ".vscode" for personal setup of the debugging and running of the code and add two files from appendix \sbref{app:software:c_cpp_properties} and \sbref{app:software:launch}.
+
+\subsubsection*{LoRaWAN setup?}
+Skal man gøre noget, for at connect til LoRaWAN. Sætte account op eller noget?
+
+
+Place modem firmware on the stm32 (\file{lr1110_updater_tool_v1.2.0_modem_v1.1.7.bin})
+
+
+Then place the demo application (\file{lr1110_evk_v3.2.0.bin})
+
+
+From https://github.com/Lora-net/SWTL001
+Copy-paste firmware for transceiver on the STM32 by dragging the following .bin-file to the STM32 folder on your computer; \file{lr11xx-updater-tool_v2.3.0_lr1110_trx_0x0401.bin}
+
+Then flash your application-code with Visual Studio Code.
+
+
+Write down \lstinline[style=bash]{USER_LORAWAN_DEVICE_EUI}, \lstinline[style=bash]{USER_LORAWAN_JOIN_EUI}, and \lstinline[style=bash]{USER_LORAWAN_APP_KEY} (can be found on \url{Loracloud.com})
+
+Run the following to update the alamanc; \lstinline[style=python]{python get_full_almanac.py -f almanac.h put_you_LoRaCloud_MGS_token_here}
+Find the token on \url{loracloud.com}
+and then make and flash the bin-file to the board: \lstinline[style=bash]{make full_lr1110 MODEM_APP=EXAMPLE_FULL_ALMANAC_UPDATE}
+
+
+%https://www.youtube.com/watch?v=xaC5oWwzOt0&t=6s
+
+Serial monitor in terminal: \lstinline[style=bash]{cu -l /dev/ttyACM0 -s 115200} (find your port with \lstinline[style=bash]{ls /dev/tty*}).
+
+\url{https://www.loracloud.com/portal/modem_services/home}
+Join server -> Devices -> "insert pin and get" -> Export device keys -> Choose "LoRaWAN version 1.0.3"
+
+
+JOIN\_EUI - (8 bytes):
+ 00 16 C0 01 FF FE 00 01
+CHIP\_EUI - (8 bytes):
+ 00 16 C0 01 F0 1A 33 DF
+CHIP\_PIN - (4 bytes):
+ BF 21 77 43
+ 
+ 
+\url{https://js.loracloud.com:7009}

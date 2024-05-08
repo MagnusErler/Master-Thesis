@@ -1,0 +1,61 @@
+\section{Introduction} \label{sec:introduction}
+The ability to accurately determine the location of objects, assets, and individuals, in today's digital landscape, is paramount across a multitude of industries. From asset tracking in logistics to precision agriculture and smart city infrastructure, the demand for reliable geolocation solutions continues to grow. However, traditional methods of geolocation often face challenges such as limited coverage, susceptibility to signal interference, and high power consumption.
+
+To address these challenges, our master thesis focuses on the development of a robust Geolocation System leveraging \ac{LoRaWAN}, Wi-Fi, and \ac{GNSS} technologies. By integrating these three complementary positioning systems, our solution aims to deliver precise location data while optimising power consumption for ultra-low power applications.
+
+\ac{LoRaWAN}, with its long-range capabilities and low power requirements, serves as the backbone of our geolocation system, providing connectivity over extended distances with minimal energy consumption. Wi-Fi scanning augments this infrastructure by leveraging the ubiquitous presence of Wi-Fi networks in urban environments, enhancing localisation accuracy and coverage in indoor and dense urban areas where \ac{GNSS} signals may be obstructed. \ac{GNSS} further complements the system by providing global positioning capabilities, ensuring reliable outdoor localisation even in remote or \ac{GNSS}-challenged regions.
+
+
+- Term of low power and ultra-low power. What's the difference
+The definition of low-power and ultra-low power are
+
+
+\subsection{Document structure}
+What is the structure and what you can read in the different sections
+
+Square brackets refer to hardware and software used for implementing the tracker with a red number (e.g.~\sbref{app:hardware:lr1110}). Applications and other references are referred in green by author and year in a square bracket (e.g. \cite{LR1110_user_manual})
+
+Pin and ports of hardware are written in italics. The same goes with signals
+
+\subsection{Product requirements}
+
+Email, field trips, phone conversations, and company meetings have been the foundation for product requirements. The requirements are divided into technical details and design. The technical details are the most important foundation for the design requirements. The requirements are listed in tab.~\ref{tab:requirements}.
+
+\begin{table}[H]
+\centering
+\caption{Product requirements.}
+\begin{tabular}{c|p{7cm}p{6cm}}
+\textbf{Category} & \textbf{Requirements} & \textbf{Wishes} \\ \hline
+\multirow{18}{*}{\begin{tabular}[c]{@{}c@{}}Technical\\ detail\end{tabular}} 
+    & \cellcolor[HTML]{EFEFEF}Class A as default & \cellcolor[HTML]{EFEFEF} \\
+    & Location accessible by phone & Data accessed via our application \\
+    & \cellcolor[HTML]{EFEFEF}\SI{10} - \SI{20}{\meter} uncertainty & \cellcolor[HTML]{EFEFEF}\SI{5} - \SI{10}{\meter} to prefer \\
+    & Option to determine update interval & \\
+    & \cellcolor[HTML]{EFEFEF}Range of \SI{5}{\kilo\meter} in open terrain & \cellcolor[HTML]{EFEFEF}\ac{SF} set by the user. Calculation of range and power consumption \\
+    & Cold start-up time $\le$ \SI{15}{\second} & Better than the market \\
+    & \cellcolor[HTML]{EFEFEF}Set update interval remotely & \cellcolor[HTML]{EFEFEF}\\
+    & Ping interval minimum once an hour & Faster ping interval is better \\
+    & \cellcolor[HTML]{EFEFEF}Locate inside and outside & \cellcolor[HTML]{EFEFEF}\\
+    & Sleep consumption under \SI{0}{\milli\ampere} & \\
+    & \cellcolor[HTML]{EFEFEF}Transmission consumption $\le$ \SI{0}{\milli\ampere} (default settings) & \cellcolor[HTML]{EFEFEF}\\
+    & Low battery alarm & View battery percentage \\
+    & \cellcolor[HTML]{EFEFEF}& \cellcolor[HTML]{EFEFEF}View temperature \\
+    & & Battery can be recharged \\
+    & \cellcolor[HTML]{EFEFEF}Location triggered by movement & \cellcolor[HTML]{EFEFEF} \\
+    & Location triggered by no movement &  \\
+    & \cellcolor[HTML]{EFEFEF} & \cellcolor[HTML]{EFEFEF}Geofence \\
+    & 1000 positions on one battery charge & \\ 
+\hline
+\multirow{5}{*}{Design}
+    & \cellcolor[HTML]{EFEFEF}Shape that enables easy case design & \cellcolor[HTML]{EFEFEF}\\
+    & \SI{30}{\gram} with battery and without case & \\
+    & \cellcolor[HTML]{EFEFEF}External antennas & \cellcolor[HTML]{EFEFEF}\\
+    & Size: \si{5} $\times$ \si{4} $\times$ \SI{1.5}{\centi\meter} & \\
+    & \cellcolor[HTML]{EFEFEF}Different battery configurations & \cellcolor[HTML]{EFEFEF}\\ 
+\hline
+\multirow{2}{*}{Other}
+    & Open-source & \\
+    & \cellcolor[HTML]{EFEFEF}Unit price $<$ \SI{1000}{\dkk} & \cellcolor[HTML]{EFEFEF}\\
+\end{tabular}
+\label{tab:requirements}
+\end{table}

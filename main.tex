@@ -1,0 +1,53 @@
+\documentclass[12pt,oneside,a4paper,english]{article}
+
+\usepackage{preamble}
+
+\begin{document}
+
+%\pagenumbering{Roman}
+\pagestyle{empty}
+
+\input{sources/00 frontpage}
+\newpage
+\input{sources/01 preface}
+\newpage
+\input{sources/02 acknowledgement}
+\newpage
+\input{sources/03 abstract}
+\newpage
+
+\tableofcontents
+\addtocontents{toc}{\protect\thispagestyle{empty}}
+\pagenumbering{gobble}
+\newpage
+
+\printacronyms[name={Abbreviations}]    % Will only print out if the acronym is used in the document. Dont put any \ac{} in captions of tables or figures if displaying a list of figures/tables, as the acronym will be displayed there first
+\setcounter{table}{0}
+\newpage
+
+\listoffigures
+\listoftables
+\newpage
+
+\pagestyle{fancy}
+\pagenumbering{arabic}
+
+\input{sources/10 introduction}
+\newpage
+\input{sources/11 development setup}
+\newpage
+\input{sources/12 state of the art}
+\newpage
+\input{sources/13 design}
+\newpage
+\input{sources/14 testing}
+\newpage
+\input{sources/90 conclusion}
+\newpage
+\input{sources/91 timeschedule}
+\newpage
+\input{sources/98 reference}
+\newpage
+\input{sources/99 appendix}
+
+\end{document}

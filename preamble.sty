@@ -1,0 +1,363 @@
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=2.25cm,includeheadfoot]{geometry}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage[toc,page]{appendix}
+\usepackage{bm}
+\usepackage{booktabs}
+\usepackage{caption}                % For \captionof command
+\usepackage{changepage}
+\usepackage{chemformula}
+\usepackage{color}
+\usepackage{comment}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{float}
+\usepackage[bottom]{footmisc}       % Footnote at bottom of the page
+\usepackage{graphicx}
+\usepackage[
+  pdfstartview=FitV,
+  bookmarks=false,
+  bookmarksopen=false,
+  breaklinks=true,
+  colorlinks=true,
+  linkcolor=red,
+  %anchorcolor=blue,
+  citecolor=green,
+  %filecolor=blue,
+  %menucolor=blue,
+  urlcolor=blue
+  ]{hyperref}
+%\usepackage{indentfirst}
+\usepackage{lastpage}
+\usepackage{lipsum}
+\usepackage{listings}
+\usepackage{lscape}
+\usepackage{makecell}               % Creating newline inside a table-cell
+\usepackage{multirow}
+\usepackage{nameref}                % Referer name instead of number
+\usepackage{natbib}
+\usepackage[super]{nth}             % Using abbreviations for 1st, 2nd, 3rd
+\usepackage[english]{nomencl}
+\usepackage{pdfpages}
+\usepackage{pdflscape}              % For rotating and displaying: \begin{landscape}
+\usepackage[figuresright]{rotating} % Rotating figures
+\usepackage{scrhack}
+\usepackage{setspace}               % Spacing between lines
+\usepackage{siunitx}                % SI-units
+\usepackage{soul}                   % Highlighting text with \hl{}
+\usepackage{suffix}                 % Enable section authors and authors in toc
+\usepackage{subcaption}
+\usepackage{tikz}
+\usetikzlibrary{shapes}
+\usepackage{titlesec}
+\usepackage{titling}
+\usepackage[flushleft]{threeparttable}
+\usepackage{tocloft}
+\usepackage[framed, numbered]{matlab-prettifier}
+\usepackage{xurl}                   % Allow line break in URLs
+\usepackage{xcolor}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% FOR DEBUGGING
+%\usepackage{showframe}% to show the page layout
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Page layout
+%\newlist{steps}{enumerate}{1}
+%\setlist[steps, 1]{leftmargin=1.5cm,label = Step %\arabic*:}
+
+\newcommand\Title{Wi-Fi \& Satellite Scanner for Ultra-low Power Geolocation}
+
+\newcommand\authorNameA{Magnus Erler}
+\newcommand\authorNumberA{s174820}
+
+\newcommand\authorNameB{Christoffer K. Boye-Hansen}
+\newcommand\authorNumberB{s223573}
+
+\setlength{\parindent}{0pt} % set no indent in whole document
+%\makeatletter\let\Title\@title\makeatother
+
+%\pagestyle{fancy}
+
+%Header
+%\rhead{\nouppercase{\rightmark}} % Shows title of the current page
+\rhead{\small{\authorNameA, \authorNumberA \\ \authorNameB, \authorNumberB}}
+\lhead{\small{\Title \\ Master Thesis}}
+\setlength\headheight{28pt}%{16pt}
+\renewcommand{\headrulewidth}{1pt}
+
+%Footer
+\renewcommand{\footrulewidth}{1pt}
+\rfoot{\includegraphics[height=1.25cm]{figures/root/logo.pdf}}
+\setlength{\footskip}{50pt}
+
+% Page numbering
+\fancyfoot[C]{Page \thepage\ of \pageref*{LastPage}}
+%\pagenumbering{arabic}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Section numbering
+%\setcounter{section}{-1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%----- CODE -----
+\usepackage{preamble_code}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%----- ACRONYM -----
+\usepackage{preamble_acronym}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Defining subsubsubsection
+\setcounter{secnumdepth}{4}
+
+\titleformat{\paragraph}
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+\titleclass{\subsubsubsection}{straight}[\subsection]
+
+\newcounter{subsubsubsection}[subsubsection]
+\renewcommand\thesubsubsubsection{\thesubsubsection.\arabic{subsubsubsection}}
+\renewcommand\theparagraph{\thesubsubsubsection.\arabic{paragraph}} % optional; useful if paragraphs are to be numbered
+
+\titleformat{\subsubsubsection}
+  {\normalfont\normalsize\bfseries}{\thesubsubsubsection}{1em}{}
+\titlespacing*{\subsubsubsection}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+\makeatletter
+\renewcommand\paragraph{\@startsection{paragraph}{5}{\z@}%
+  {3.25ex \@plus1ex \@minus.2ex}%
+  {-1em}%
+  {\normalfont\normalsize\bfseries}}
+\renewcommand\subparagraph{\@startsection{subparagraph}{6}{\parindent}%
+  {3.25ex \@plus1ex \@minus .2ex}%
+  {-1em}%
+  {\normalfont\normalsize\bfseries}}
+\def\toclevel@subsubsubsection{4}
+\def\toclevel@paragraph{5}
+\def\toclevel@paragraph{6}
+\def\l@subsubsubsection{\@dottedtocline{4}{7em}{4em}}
+\def\l@paragraph{\@dottedtocline{5}{10em}{5em}}
+\def\l@subparagraph{\@dottedtocline{6}{14em}{6em}}
+\makeatother
+
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{4}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Sectionauthor
+%\newcommand\sectionauthor[1]{\authortoc{#1}\printsectionauthor{#1}}
+\newcommand\sectionauthor[1]{\printsectionauthor{#1}}
+\WithSuffix\newcommand\sectionauthor*[1]{\printsectionauthor{#1}}
+
+\makeatletter
+%Sectionauthor in text
+\newcommand{\printsectionauthor}[1]{%
+  {\parindent0pt\vspace*{-5pt}%
+  \linespread{1}\normalsize\scshape#1%
+  \par\nobreak\vspace*{15pt}}
+  \@afterheading%
+}
+
+%Sectionauthor in toc
+\newcommand{\authortoc}[1]{%
+  \addtocontents{toc}{\vskip-5pt}%
+  \addtocontents{toc}{%
+    \protect\contentsline{chapter}%
+    {\hskip 1.8cm\mdseries\scshape\protect\scriptsize#1}{}{}}
+ \addtocontents{toc}{\vskip5pt}%
+}
+\makeatother
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Allow line break if using math in text
+%\makeatletter
+%\def\old@comma{,}
+%\catcode`\,=13
+%\def,{%
+%  \ifmmode%
+%    \old@comma\discretionary{}{}{}%
+%  \else%
+%    \old@comma%
+%  \fi%
+%}
+%\makeatother
+
+\newcommand\TSRecHeight{0.3cm}
+\newcommand\TSLineHeight{0.21cm}
+\newcommand\TSDoubleLineHeight{0.3cm}
+
+\newcommand{\cellOne}[1]{%
+    \multicolumn{1}{c|}{%
+        \raisebox{-0.4\height}{%
+            \begin{tikzpicture}
+                \node[draw, rectangle, fill=#1!20, rounded corners=2pt, minimum width=0.3cm, minimum height=\TSRecHeight] (rectangle) at (0,0) {};
+                \node at (rectangle) {\textcolor{#1}{\strut}};
+            \end{tikzpicture}%
+        }%
+    }%
+}
+\newcommand{\cellTwo}[1]{%
+    \multicolumn{2}{c|}{%
+        \raisebox{-0.4\height}{%
+            \begin{tikzpicture}
+                \draw (0,-\TSLineHeight) -- (0,\TSLineHeight);
+                \node[draw, rectangle, fill=#1!20, rounded corners=2pt, minimum width=1.0cm, minimum height=\TSRecHeight] (rectangle) at (0,0) {};
+                \node at (rectangle) {\textcolor{#1}{\strut}}; 
+            \end{tikzpicture}%
+        }%
+    }%
+}
+\newcommand{\CellTwo}[1]{%
+    \multicolumn{2}{c|}{%
+        \raisebox{-0.65\height}{%
+            \begin{tikzpicture}
+                \draw (0,-\TSDoubleLineHeight) -- (0,\TSDoubleLineHeight);
+                \node[draw, rectangle, fill=#1!20, rounded corners=2pt, minimum width=1.0cm, minimum height=\TSRecHeight] (rectangle) at (0,0) {};
+                \node at (rectangle) {\textcolor{#1}{\strut}}; 
+            \end{tikzpicture}%
+        }%
+    }%
+}
+\newcommand{\ccellThree}[1]{%
+    \multicolumn{3}{c|}{%
+        \raisebox{-0.4\height}{%
+            \begin{tikzpicture}
+                \draw (-0.3,-\TSLineHeight) -- (-0.3,\TSLineHeight);
+                \draw (0.41,-\TSLineHeight) -- (0.41,\TSLineHeight);
+                \node[draw, rectangle, fill=#1!20, rounded corners=2pt, minimum width=1.7cm, minimum height=\TSRecHeight] (rectangle) at (0,0) {};
+                \node at (rectangle) {\textcolor{#1}{\strut}}; 
+            \end{tikzpicture}%
+        }%
+    }%
+}
+\newcommand{\cellThree}[1]{%
+    \multicolumn{3}{c|}{%
+        \raisebox{-0.4\height}{%
+            \begin{tikzpicture}
+                \draw (-0.39,-\TSLineHeight) -- (-0.39,\TSLineHeight);
+                \draw (0.39,-\TSLineHeight) -- (0.39,\TSLineHeight);
+                \node[draw, rectangle, fill=#1!20, rounded corners=2pt, minimum width=1.7cm, minimum height=\TSRecHeight] (rectangle) at (0,0) {};
+                \node at (rectangle) {\textcolor{#1}{\strut}}; 
+            \end{tikzpicture}%
+        }%
+    }%
+}
+\newcommand{\CellThree}[1]{%
+    \multicolumn{3}{c|}{%
+        \raisebox{-0.65\height}{%
+            \begin{tikzpicture}
+                \draw (-0.413,-\TSDoubleLineHeight) -- (-0.413,\TSDoubleLineHeight);
+                \draw (0.413,-\TSDoubleLineHeight) -- (0.413,\TSDoubleLineHeight);
+                \node[draw, rectangle, fill=#1!20, rounded corners=2pt, minimum width=1.7cm, minimum height=\TSRecHeight] (rectangle) at (0,0) {};
+                \node at (rectangle) {\textcolor{#1}{\strut}}; 
+            \end{tikzpicture}%
+        }%
+    }%
+}
+\newcommand{\cellFour}[1]{%
+    \multicolumn{4}{c|}{%
+        \raisebox{-0.4\height}{%
+            \begin{tikzpicture}
+                \draw (-0.75,-\TSLineHeight) -- (-0.75,\TSLineHeight);
+                \draw (0,-\TSLineHeight) -- (0,\TSLineHeight);
+                \draw (0.75,-\TSLineHeight) -- (0.75,\TSLineHeight);
+                \node[draw, rectangle, fill=#1!20, rounded corners=2pt, minimum width=2.5cm, minimum height=\TSRecHeight] (rectangle) at (0,0) {};
+                \node at (rectangle) {\textcolor{#1}{\strut}}; 
+            \end{tikzpicture}%
+        }%
+    }%
+}
+\newcommand{\CellFour}[1]{%
+    \multicolumn{4}{c|}{%
+        \raisebox{-0.65\height}{%
+            \begin{tikzpicture}
+                \draw (-0.825,-\TSDoubleLineHeight) -- (-0.825,\TSDoubleLineHeight);
+                \draw (0,-\TSDoubleLineHeight) -- (0,\TSDoubleLineHeight);
+                \draw (0.825,-\TSDoubleLineHeight) -- (0.825,\TSDoubleLineHeight);
+                \node[draw, rectangle, fill=#1!20, rounded corners=2pt, minimum width=2.5cm, minimum height=\TSRecHeight] (rectangle) at (0,0) {};
+                \node at (rectangle) {\textcolor{#1}{\strut}}; 
+            \end{tikzpicture}%
+        }%
+    }%
+}
+\newcommand{\CellFive}[1]{%
+    \multicolumn{5}{c|}{%
+        \raisebox{-0.65\height}{%
+            \begin{tikzpicture}
+                \draw (-1.1,-\TSDoubleLineHeight) -- (-1.1,\TSDoubleLineHeight);
+                \draw (-0.41,-\TSDoubleLineHeight) -- (-0.41,\TSDoubleLineHeight);
+                \draw (0.41,-\TSDoubleLineHeight) -- (0.41,\TSDoubleLineHeight);
+                \draw (1.1,-\TSDoubleLineHeight) -- (1.1,\TSDoubleLineHeight);
+                \node[draw, rectangle, fill=#1!20, rounded corners=2pt, minimum width=3.3cm, minimum height=\TSRecHeight] (rectangle) at (0,0) {};
+                \node at (rectangle) {\textcolor{#1}{\strut}}; 
+            \end{tikzpicture}%
+        }%
+    }%
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Christoffer Table
+
+\usepackage{colortbl} % Background colour in table cells (colortbl)
+
+\usepackage{forloop}
+\newcounter{loopcntr}
+\newcommand{\rpt}[2][1]{%
+  \forloop{loopcntr}{0}{\value{loopcntr}<#1}{#2}%
+}
+\newcommand{\on}[1][1]{
+  \forloop{loopcntr}{0}{\value{loopcntr}<#1}{&\cellcolor{lime}}
+}
+\newcommand{\onx}[1][1]{
+  \forloop{loopcntr}{0}{\value{loopcntr}<#1}{&\cellcolor{orange}}
+}
+\newcommand{\offr}[1][1]{
+  \forloop{loopcntr}{0}{\value{loopcntr}<#1}{&\cellcolor{gray}}
+}
+\newcommand{\off}[1][1]{
+  \forloop{loopcntr}{0}{\value{loopcntr}<#1}{&}
+}
+
+\definecolor{orange}{HTML}{FF7F00}
+
+
+\definecolor{copper_green}{RGB}{87,175,101}
+\definecolor{core_yellow}{RGB}{232,164,1}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SI Units
+\sisetup{detect-weight=true, detect-family=true} %Enable same font-style for SI-units in section-titles
+
+% Custom Units
+\DeclareSIUnit\pixel{px}
+\DeclareSIUnit\megapixel{MP}
+\DeclareSIUnit\fps{FPS}
+\DeclareSIUnit\mAh{mAh}
+\DeclareSIUnit\dkk{DKK}
+\DeclareSIUnit\million{Mio.}
+\DeclareSIUnit\year{yr}
+\DeclareSIUnit\pts{pts}
+\DeclareSIUnit\dB{dB}
+\DeclareSIUnit\ounce{oz}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\file}[1]{\url{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Reference
+\newcommand\sbref[1]{[\ref{#1}]}    % Square brackets around reference when using \sbref{}
+
+% --- End of page settings ---
+
