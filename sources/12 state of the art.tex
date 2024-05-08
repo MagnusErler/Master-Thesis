@@ -44,8 +44,23 @@ Considerations around the communication protocol and \ac{LoRa} versus protocols 
     \label{fig:LoRa_bandwidth_range}
 \end{figure}
 
-\subsubsubsection*{En overskrift}
-\ac{LoRa} refers to the physical layer and the proprietary spread spectrum modulation technique developed by Semtech, while \ac{LoRaWAN} refers to the network layer that defines the communication protocol and system architecture, enabling devices to communicate with \ac{LoRa} gateways and network servers. \ac{LoRaWAN} specifies how data should be transmitted, how end devices authenticate themselves on the network, how messages are acknowledged, and how devices can go into low-power sleep mode to conserve energy.
+\ac{LoRa} refers to the physical layer and the proprietary spread spectrum modulation technique developed by Semtech, while \ac{LoRaWAN} refers to the network layer that defines the communication protocol and system architecture, enabling devices to communicate with \ac{LoRa} gateways and network servers. 
+
+\subsubsubsection*{LoRa}
+LoRa, derived from Chirp Spread Spectrum (CSS) technology, encodes information on radio waves using frequency-modulated chirp pulses, where a chirp is a sinusoidal signal with a changing frequency over time. When illustrated as a function of time over amplitude and time over frequency, a single up looks like this:
+
+
+
+We want go into details about how the technology work, but will describe the major points that influence data rate and power usage.  and  On a 
+
+
+(\url{https://en.wikipedia.org/wiki/Chirp_spread_spectrum)}
+(\url{https://www.thethingsnetwork.org/docs/lorawan/what-is-lorawan/})
+
+LoRa modulated transmission is robust against disturbances and can be received across great distances.
+
+
+\ac{LoRaWAN} specifies how data should be transmitted, how end devices authenticate themselves on the network, how messages are acknowledged, and how devices can go into low-power sleep mode to conserve energy.
 
 \ac{LoRaWAN} supports different classes of devices, allowing for flexibility in applications requiring either periodic or event-driven data transmission.
 
@@ -86,7 +101,7 @@ Geopositioning or geolocation is the process of determining or estimating the ge
 
 \textbf{Response}: After processing the request and estimating the device's location, the Geolocation API returns a response containing the latitude and longitude coordinates of the device's approximate location. Additionally, the response may include other information such as the accuracy of the location estimate and a confidence radius.
 
-\textbf{Privacy Considerations}: Google takes privacy seriously and implements measures to protect user privacy when using the Geolocation API. For example, the \ac{API} may not return precise location data in certain cases, and users have control over their location-sharing settings through their device settings and Google account preferences.
+\textbf{Privacy Considerations}: Google implements measures to protect user privacy when using the Geolocation API. For example, the \ac{API} may not return precise location data in certain cases, and users have control over their location-sharing settings through their device settings and Google account preferences.
 
 Overall, Google's Geolocation API provides a convenient and efficient way for developers to determine the approximate geographical location of a device without relying solely on \ac{GPS}, making it useful for a wide range of location-based applications and services."
 

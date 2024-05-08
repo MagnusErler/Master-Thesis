@@ -2,7 +2,7 @@
 
 The design and its implementation have been thoroughly tested.
 
-\section{Possible test scenarios}
+\subsection{Possible test scenarios}
 \begin{enumerate}
     \item Test if it uses less power to have a timer on STM that turns the accelerometer on and off
     \item Which temperature sensor uses less power?
@@ -10,7 +10,7 @@ The design and its implementation have been thoroughly tested.
     \item Does the accelerometer use more power when reading temp?
     \item Send VBat and temp with each upload to TTN?
     \item How much power does it use to set all registers at once or one after one in the accelerometer
-    \item Does it make sense to use power-down mode instead of 1hz?
+    \item Does it make sense to use power-down mode instead of \SI{1}{\hertz}?
 \end{enumerate}
 
 \subsection{Testing method - Statistics}
@@ -38,13 +38,13 @@ How does the product meet our design criteria
 
 \begin{table}[H]
 \centering
+\caption{\url{https://www3.cs.stonybrook.edu/~mdasari/courses/cse570/lora.pdf}}
 \begin{tabular}{lll}
               & LoRaWAN    & NB-IoT    \\
-TX Current    & 24-44 mA   & 74-220 mA \\
-RX Current    & 12 mA      & 46 mA     \\
-Idle Current  & 1.4 mA     & 6 mA      \\
-Sleep Current & 0.1 microA & 3 microA 
+TX Current    & 24-\SI{44}{\milli\ampere} & 74-\SI{220}{\milli\ampere} \\
+RX Current    & \SI{12}{\milli\ampere}     & \SI{46}{\milli\ampere}     \\
+Idle Current  & \SI{1.4}{\milli\ampere}     & \SI{6}{\milli\ampere}      \\
+Sleep Current & \SI{0.1}{\micro\ampere} & \SI{3}{\micro\ampere}
 \end{tabular}
 \end{table}
-Kilde: \url{https://www3.cs.stonybrook.edu/~mdasari/courses/cse570/lora.pdf}
 
