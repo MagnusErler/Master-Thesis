@@ -322,7 +322,7 @@ The STM32 and LR1110 communication is through \ac{SPI} (see fig.~\ref{fig:stm32_
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{figures/STM32_LR1110_interface.drawio.png}
+    \includegraphics[width=0.6\textwidth]{figures/STM32_LR1110_interface.png}
     \caption{Interface between STM32 and LR1110.}
     \label{fig:stm32_lr1110_interface}
 \end{figure}
@@ -565,6 +565,8 @@ BU52077GWZ-E2 & U7 & BGA-4 & BU52077GWZ-E2 & ROHM & 0.177 \\
 \subsection{Uplink communication}
 
 If the accelerometer has not detected any movement in th eperiode specified in the Wi-Fi or GNSS scan period, the device does not send the \ac{MAC} addresses of the Wi-Fi \ac{AP}s or \ac{GNSS} satellites. Instead, it goes into sleep again and checks again after either the Wi-Fi or \ac{GNSS} scan period.
+
+
 
 If using Wi-Fi the device sends the \ac{MAC} addresses as a payload on \ac{FPORT} 197. E.g. (hex-values) 
 
