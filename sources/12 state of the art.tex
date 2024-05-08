@@ -32,10 +32,10 @@ More information about GNSS, if we need to write more:
 %\ac{C/N0} is a metric used to quantify the strength of a satellite signal relative to the background noise in the receiver's environment. \ac{C/N0} is often expressed in decibels [\si{\dB}] and is a crucial parameter in determining the quality of the received satellite signal. A higher \ac{C/N0} value generally indicates a stronger and more reliable satellite signal, which is desirable for accurate positioning and navigation.
 
 \subsubsection{Long Range/Wide-Area-Network (LoRa/LoRaWAN)}
-\ac{LoRa}, is an open standard,  networking layer, that is particularly well-suited for the \ac{IOT} and other applications where devices need to transmit small amounts of data over long distances while operating on low power \cite{LoRaWAN_1_0}. \\
+\ac{LoRa}, is an open standard networking layer, that operates on license-free sub-gigahertz radio frequency bands and is particularly well-suited for the \ac{IOT} and other applications where devices need to transmit small amounts of data over long distances while operating on low power \cite{LoRaWAN_1_0}.
 
-As shown in figure \ref{fig:LoRa_bandwidth_range} other \ac{LPWAN} technologies exist, however as \ac{LoRa} is the only protocol the LR1110-chip implements at this point, it is chosen wireless communication protocol for this project.
-Considerations around the communication protocol and the advantages and disadvantages of \ac{LoRa} versus protocols with similar purposes will be presented in section \textcolor{red}{indsæt reference}.
+As shown in figure \ref{fig:LoRa_bandwidth_range} other low power communication technologies exist, each with there different advantages and disadvantages. However as \ac{LoRa} is the only protocol the LR1110-chip implements at this point, it is chosen wireless communication protocol for this project.
+Considerations around the communication protocol and \ac{LoRa} versus protocols with similar purposes will be presented in section \textcolor{red}{indsæt reference}.
 
 \begin{figure}[H]
     \centering
@@ -49,7 +49,7 @@ Considerations around the communication protocol and the advantages and disadvan
 
 \ac{LoRaWAN} supports different classes of devices, allowing for flexibility in applications requiring either periodic or event-driven data transmission.
 
-\ac{DevEUI} (also known as ChipEUI) is like a \ac{MAC} address, a unique identifier for the device. It is a 64-bit number that is assigned to the device by the manufacturer. The \ac{DevEUI} is used to identify the device in the network and is used in the activation process. \ac{JoinEUI} (also known as AppEUI) is a 64-bit number that is used to identify the network server in the activation process. The \ac{AppKey} is a 128-bit number that is used to encrypt the messages between the device and the network server. The \ac{AppKey} is used in the activation process to derive the \ac{NwkSKey} and \ac{AppSKey}.
+\ac{DevEUI} (also known as ChipEUI) is like a \ac{MAC} address, a unique identifier for the device. It is a 64-bit number that is assigned to the device by the manufacturer. The \ac{DevEUI} is used to identify the device in the network and is used in the activation process. \ac{JoinEUI} (also known as AppEUI) is a 64-bit number that is used to identify the network server in the activation process. The AppKey is a 128-bit number that is used to encrypt the messages between the device and the network server. The AppKey is used in the activation process to derive the NwkSKey and AppSKey.
 
 
 %https://www.loracloud.com/documentation/join_service?url=glossary.html#term-Join-Server
