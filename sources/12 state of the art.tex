@@ -34,9 +34,6 @@ More information about GNSS, if we need to write more:
 \subsubsection{Long Range/Wide-Area-Network (LoRa/LoRaWAN)}
 \ac{LoRa}, is an open standard networking layer, that is particularly well-suited for the \ac{IOT} and other applications where devices need to transmit small amounts of data over long distances while operating on low power \cite{LoRaWAN_1_0}.
 
-\ac{DevEUI} (also known as ChipEUI) is like a \ac{MAC} address, a unique identifier for the device. It is a 64-bit number that is assigned to the device by the manufacturer. The \ac{DevEUI} is used to identify the device in the network and is used in the activation process. \ac{JoinEUI} (also known as AppEUI) is a 64-bit number that is used to identify the network server in the activation process. The \ac{AppKey} is a 128-bit number that is used to encrypt the messages between the device and the network server. The \ac{AppKey} is used in the activation process to derive the \ac{NwkSKey} and \ac{AppSKey}.
-
-\subsubsubsection*{Why LoRa}
 As shown in figure  other \ac{LPWAN} technologies exist, however as \ac{LoRa} is the only protocol the LR1110-chip implements at this point, it is chosen wireless communication protocol for this project.
 Considerations around the communication protocol and the advantages and disadvantages of \ac{LoRa} versus protocols with similar purposes will be presented in section \textcolor{red}{indsæt reference}.
 
@@ -51,6 +48,8 @@ Considerations around the communication protocol and the advantages and disadvan
 \ac{LoRa} refers to the physical layer and the proprietary spread spectrum modulation technique developed by Semtech, while \ac{LoRaWAN} refers to the network layer that defines the communication protocol and system architecture, enabling devices to communicate with \ac{LoRa} gateways and network servers. \ac{LoRaWAN} specifies how data should be transmitted, how end devices authenticate themselves on the network, how messages are acknowledged, and how devices can go into low-power sleep mode to conserve energy.
 
 \ac{LoRaWAN} supports different classes of devices, allowing for flexibility in applications requiring either periodic or event-driven data transmission.
+
+\ac{DevEUI} (also known as ChipEUI) is like a \ac{MAC} address, a unique identifier for the device. It is a 64-bit number that is assigned to the device by the manufacturer. The \ac{DevEUI} is used to identify the device in the network and is used in the activation process. \ac{JoinEUI} (also known as AppEUI) is a 64-bit number that is used to identify the network server in the activation process. The \ac{AppKey} is a 128-bit number that is used to encrypt the messages between the device and the network server. The \ac{AppKey} is used in the activation process to derive the \ac{NwkSKey} and \ac{AppSKey}.
 
 
 %https://www.loracloud.com/documentation/join_service?url=glossary.html#term-Join-Server
