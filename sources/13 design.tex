@@ -332,7 +332,14 @@ The \textit{BUSY} signal is used as a handshake to indicate if the LR1110 is rea
 The \textit{EVENT} signal is an output signal of the LR1110. This line signals to the STM32 that the device has an asynchronous event data pending. The event can be \ac{LoRaWAN} stack, \ac{GNSS}, or Wi-Fi events. The STM32 must use the GetEventSize (...) command to determine the event size and GetEvent (...) command to retrieve such data.
 The \textit{EVENT} signal stays high until all events are cleared. The STM32 must clear all the events before returning to sleep mode. This prevents the hit from missing the rising edge of the \textit{EVENT} signal when there is a new event. Secondly, this saves several tens of uA of current consumption when the \textit{EVENT} signal is kept low by the LR1110.
 
-% show example: https://semtech.my.salesforce.com/sfc/p/#E0000000JelG/a/2R000000USsZ/5EPFu4u.9lO9tdwmmsEMyMrllCWczDOVnPoaShaK2mg
+%show example: https://semtech.my.salesforce.com/sfc/p/#E0000000JelG/a/2R000000USsZ/5EPFu4u.9lO9tdwmmsEMyMrllCWczDOVnPoaShaK2mg
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{figures/event_example.png}
+    \caption{Example of Wi-Fi passive scan transaction.}
+    \label{fig:event_example}
+\end{figure}
 
 
 \subsubsection{Write commands to LR1110}
@@ -457,15 +464,11 @@ Our first version (fig.~\ref{fig:pcb_v1}) of the \ac{PCB} was designed to experi
     \begin{minipage}[c]{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figures/PCB_v1.png}
-        %\caption{From above without PointCloud and graph.}
-        \label{fig:pcb_v1_schematic}
-    \end{minipage}%
-    \hfill % Add horizontal space between the minipages
+    \end{minipage}
+    \hfill
     \begin{minipage}[c]{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figures/PCB_v1_3D.png}
-        %\caption{From the side without PointCloud and graph.}
-        \label{fig:pcb_v1_3d}
     \end{minipage}
     \caption{\nth{1} version of our PCB. \si{32} $\times$ \SI{54}{\milli\meter}.}
     \label{fig:pcb_v1}
@@ -478,15 +481,11 @@ After the success of being able to fast flash and debug the system, we designed 
     \begin{minipage}[c]{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figures/PCB_v2.png}
-        %\caption{From above without PointCloud and graph.}
-        \label{fig:pcb_v2_schematic}
-    \end{minipage}%
+    \end{minipage}
     \hfill
     \begin{minipage}[c]{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figures/PCB_v2_3D.png}
-        %\caption{From the side without PointCloud and graph.}
-        \label{fig:pcb_v2_3d}
     \end{minipage}
     \caption{\nth{2} version of our PCB. \si{50} $\times$ \SI{50}{\milli\meter}.}
     \label{fig:pcb_v2}
@@ -499,15 +498,11 @@ For the \nth{3} and final version of our \ac{PCB} (fig.~\ref{fig:pcb_v3}), we re
     \begin{minipage}[c]{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figures/PCB_v3.png}
-        %\caption{From above without PointCloud and graph.}
-        \label{fig:pcb_v3_schematic}
-    \end{minipage}%
+    \end{minipage}
     \hfill
     \begin{minipage}[c]{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figures/PCB_v3_3D.png}
-        %\caption{From the side without PointCloud and graph.}
-        \label{fig:pcb_v3_3d}
     \end{minipage}
     \caption{\nth{3} version of our PCB. \si{33} $\times$ \SI{49}{\milli\meter}. A larger version can be found in app.~\ref{app:PCB} and app.~\ref{app:3DView}}
     \label{fig:pcb_v3}
@@ -589,10 +584,10 @@ If using \ac{GNSS} the device sends XXX as a \ac{NAV} on \ac{FPORT} 198 or 192 d
 \begin{tabular}{l|l|p{8cm}|l}
 \ac{FPORT} & Payload & Usage & Payload \\ \hline
 3 & & Get temperature and battery voltage & E.g. $26.4$ and $3.3$ \\
-4 & & Uptime & \\
-5 & & Firmware version & \\
-6 & & \ac{JoinEUI} & \\
-7 & & \ac{DevEUI} & \\
+4 & & Get uptime & \\
+5 & & Get firmware version & \\
+6 & & Get \ac{JoinEUI} & \\
+7 & & Get \ac{DevEUI} & \\
 199 & & LoRa Cloud requests ----- DM port ----- Stream port  & \\
 201 & & fragport  & \\
 \end{tabular}
@@ -601,7 +596,7 @@ If using \ac{GNSS} the device sends XXX as a \ac{NAV} on \ac{FPORT} 198 or 192 d
 
 \subsection{Downlink communication}
 
-Able to send \ac{GNSS} with \ac{GNSS} or \ac{GNSSNG}.
+Data from \ac{GNSS} can either be send with \ac{GNSS} or \ac{GNSSNG}. \ac{GNSSNG} is used for multiple NAV messages.
 
 \begin{table}[H]
 \centering
@@ -611,7 +606,7 @@ Able to send \ac{GNSS} with \ac{GNSS} or \ac{GNSSNG}.
 \ac{FPORT} & Payload & Usage & Default \\ \hline
 1 & Scan period & \ac{GNSS} scan period [s] & \SI{120}{\second} \\
 2 & Scan period & Set Wi-Fi scan period [s] & \SI{60}{\second} \\
-192 & & \ac{GNSSNG} port (for multiple NAV messages)  & \\
+192 & & \ac{GNSSNG}  & \\
 197 & & Wi-Fi scan results to be forwarded to LoRa Cloud & \\
 198 & & \ac{GNSS} port  & \\
 199 & & LoRa Cloud requests ----- DM port ----- Stream port  & \\
