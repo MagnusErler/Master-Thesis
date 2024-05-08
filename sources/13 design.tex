@@ -332,7 +332,7 @@ The \textit{BUSY} signal is used as a handshake to indicate if the LR1110 is rea
 The \textit{EVENT} signal is an output signal of the LR1110. This line signals to the STM32 that the device has an asynchronous event data pending. The event can be \ac{LoRaWAN} stack, \ac{GNSS}, or Wi-Fi events. The STM32 must use the GetEventSize (...) command to determine the event size and GetEvent (...) command to retrieve such data.
 The \textit{EVENT} signal stays high until all events are cleared. The STM32 must clear all the events before returning to sleep mode. This prevents the hit from missing the rising edge of the \textit{EVENT} signal when there is a new event. Secondly, this saves several tens of uA of current consumption when the \textit{EVENT} signal is kept low by the LR1110.
 
-% show example: https://semtech.my.salesforce.com/sfc/p/#E0000000JelG/a/2R000000USsZ/5EPFu4u.9lO9tdwmmsEMyMrllCWczDOVnPoaShaK2mg
+%show example: https://semtech.my.salesforce.com/sfc/p/#E0000000JelG/a/2R000000USsZ/5EPFu4u.9lO9tdwmmsEMyMrllCWczDOVnPoaShaK2mg
 
 \begin{figure}[H]
     \centering
