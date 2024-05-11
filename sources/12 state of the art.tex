@@ -21,10 +21,10 @@ Wi-Fi is a part of a wireless network protocol based on the technical standard I
 
 \subsubsection{Global Navigation Satellite System (GNSS)}
 \ac{GNSS} is the general term for any satellite constellations that orbit the Earth and provides radio-based positioning, navigation, and timing information to users worldwide. This information can be used for trilateration; determining the unknown position coordinates of a point of interest, which is described in section %\ref{indsæt ref}.
-The most well-known constellation is the United States-operated \ac{GPS} \ac{GPS}. Other constellations are GLONASS from Russia, Galileo from the European Union, BeiDou from China, IRNSS from India and QZSS from Japan. The LR1110 chip is capable of receiving signals from both GPS and BeiDou satellites.
+The most well-known constellation is the United States-operated \ac{GPS} \ac{GPS}. Other constellations are GLONASS from Russia, Galileo from the European Union, BeiDou from China, IRNSS from India and QZSS from Japan. The LR1110 chip is capable of receiving signals from both \ac{GPS} and BeiDou satellites.
 Because of the signal strength and distance to the satellites, geopositioning using GNSS is predominantly viable in outdoor environments.
 
-More information about GNSS, if we need to write more:
+More information about \ac{GNSS}, if we need to write more:
 \url{https://www.youtube.com/watch?v=FU_pY2sTwTA}
 \url{https://www.youtube.com/watch?v=wCcARVbL_Dk}
 
@@ -33,8 +33,10 @@ More information about GNSS, if we need to write more:
 
 \subsubsection{Long Range/Wide-Area-Network (LoRa/LoRaWAN)}
 \ac{LoRa}, is an open standard networking layer, that operates on license-free sub-gigahertz radio frequency bands and is particularly well-suited for the \ac{IOT} and other applications where devices need to transmit small amounts of data over long distances while operating on low power \cite{LoRaWAN_1_0}.
+The theoretical maximum range for LoRa is \SI{850}{\kilo\meter} with the current world record standing at \SI{832}{\kilo\meter} (The Things Network sets new \ac{LoRaWAN} transmission record - by Gareth Halfacree).
+However, the practical application of \ac{LoRa} technology is subject to significant attenuation due to environmental obstructions, resulting in substantially diminished operational ranges, as the efficacy of \ac{LoRa} transmissions is heavily contingent upon the positioning of the receiver. Indoor deployments typically yield ranges of approximately \SI{500}{\meter}, whereas outdoor placements atop buildings extend this range to around \SI{2}{\kilo\meter}, and further elevation atop tall antennas may facilitate transmission distances exceeding \SI{10}{\kilo\meter}.
 
-As shown in figure \ref{fig:LoRa_bandwidth_range} other low power communication technologies exist, each with there different advantages and disadvantages. However as \ac{LoRa} is the only protocol the LR1110-chip implements at this point, it is chosen wireless communication protocol for this project.
+As shown in figure \ref{fig:LoRa_bandwidth_range} other low-power communication technologies exist, each with different advantages and disadvantages. However as \ac{LoRa} is the only protocol the LR1110-chip implements at this point, it is chosen as a wireless communication protocol for this project.
 Considerations around the communication protocol and \ac{LoRa} versus protocols with similar purposes will be presented in section \textcolor{red}{indsæt reference}.
 
 \begin{figure}[H]
@@ -44,7 +46,14 @@ Considerations around the communication protocol and \ac{LoRa} versus protocols 
     \label{fig:LoRa_bandwidth_range}
 \end{figure}
 
-\ac{LoRa} refers to the physical layer and the proprietary spread spectrum modulation technique developed by Semtech, while \ac{LoRaWAN} refers to the network layer that defines the communication protocol and system architecture, enabling devices to communicate with \ac{LoRa} gateways and network servers. 
+\ac{LoRa} refers to the physical layer and the proprietary spread spectrum modulation technique developed by Semtech. In contrast, \ac{LoRaWAN} refers to the network layer that defines the communication protocol and system architecture, enabling devices to communicate with \ac{LoRa} gateways and network servers. 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{figures/image.png}
+    \caption{\url{https://sirinsoftware.com/blog/lorawan-mac-layer-definition-architecture-classes-and-more}}
+    \label{fig:enter-label}
+\end{figure}
 
 \subsubsubsection*{LoRa}
 LoRa, derived from Chirp Spread Spectrum (CSS) technology, encodes information on radio waves using frequency-modulated chirp pulses, where a chirp is a sinusoidal signal whose frequencies vary linearly over time. When illustrated in the time- and frequency domain, a chirp looks like this:
@@ -52,54 +61,143 @@ LoRa, derived from Chirp Spread Spectrum (CSS) technology, encodes information o
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{figures/linear-chirp-up-signal.png}
-    \caption{Linear up-chirp signal: (a) Time domain representation. The signal's frequency increases linearly as the time passes; (b) The variation of the frequency of the signal that is illustrated in panel (a). Rework from: \url{https://www.researchgate.net/figure/Linear-up-chirp-signal-a-Time-domain-representation-The-signals-frequency-increases_fig4_341373286}}
+    \caption{Linear up-chirp signal: (a) Time domain representation. The signal's frequency increases linearly as time passes; (b) The variation of the frequency of the signal that is illustrated in panel (a). Rework from: \url{https://www.researchgate.net/figure/Linear-up-chirp-signal-a-Time-domain-representation-The-signals-frequency-increases_fig4_341373286}}
     \label{fig:LoRa-upchirp}
 \end{figure}
 
 (\url{https://en.wikipedia.org/wiki/Chirp_spread_spectrum)}
 (\url{https://www.thethingsnetwork.org/docs/lorawan/what-is-lorawan/})
 
-We want go into much details about how the technology work, but will stick to describing the major points that influence data rate, power usage and range, which is bandwidth and sweep rate/spreading factor.
-The bandwidth is the frequency ranges which the signal sweeps over. Increasing the
+LoRa is the physical layer of the protocol and is responsible for transmitting the raw bit stream over the physical medium.
+We want to go into much detail about how the technology works but will stick to describing the major points that influence data rate, power usage and range, which are bandwidth, sweep rate/\ac{SF} and coding factor.
 
-The higher the bandwidth, the higher the data rate (chip rate)
-The lower the bandwidth, the lower the data rate (chip rate)
+\textbf{Bandwidth (BW):} is the frequency range that the signal sweeps over. Increasing the bandwidth, increases the data rate (decreases \ac{ToA}), but reduces the resistance to noise and interference, and therefore the range. Making the bandwidth 2x wider (from BW125 to BW250) allows you to send 2x more bytes at the same time.
+In Europe, the bandwidth is restricted to \SI{125}{\kilo\hertz} and \SI{250}{\kilo\hertz}.
 
-increasing bandwidth gives a better qualitity signal, but bandwidth is scarse and is restricted. It is restricted to 500 khz, 250 khz and 125 khz.
-In europe; 250 khz and 125 khz.
+\textbf{Spreading factor (SF):} is a word for how fast the sweep changes over the chosen bandwidth. The faster the sweep rate, the more information can be passed in a shorter time decreasing the \ac{ToA}, but making the signal more sensitive to noise which decreases the range. Making the \ac{SF} one step lower (from SF10 to SF9) allows you to send 2 times more bytes at the same time.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/sweep_rate.png}
+    \caption{Spreading factor and more (skal laves selv, eller reference) \url{https://www.thethingsnetwork.org/docs/lorawan/what-is-lorawan/}}
+    \label{fig:spread_rate}
+\end{figure}
+
+\textbf{The Code Rate (CR):} in \ac{LoRaWAN} determines the number of additional bits added to each payload, which are utilised for error correction purposes. \ac{LoRaWAN} employs four different code rates: 4/5, 4/6, 5/7 and 4/8.
+For example, if the code rate is 5/7, for every 5 bits of useful information, 2 extra bits are generated. A higher CR increases the \ac{ToA} but makes communication more robust and therefore also increases the range.
+
+\url{https://iopscience.iop.org/article/10.1088/1742-6596/1407/1/012092/pdf}
+
+\textbf{Time on Air (ToA):} All the above factors influence the package \ac{ToA}, which is a measure of how long it takes to transmit a message. This is the primary factor for battery usage of the end device, as a higher \ac{ToA} results in longer active times for the radio transceivers.
+
+Måske link til den her: \url{https://www.thethingsnetwork.org/airtime-calculator}
+
+All of these parameters can be configured in software, which is the real power of LoRa. As a developer, you can tailor the communication parameters to suit specific requirements, whether prioritising extended transmission distances or minimised power consumption.
+
+\subsubsubsection*{LoRaWAN}
+\ac{LoRaWAN} is the \ac{MAC} protocol sublayer on top of the physical (PHY) layer. It is a set of guidelines that dictate how the communication between devices and gateways in a LoRa network should happen. It specifies and handles:
+\begin{itemize}
+    \item how data should be transmitted; The \ac{MAC} layer structures data into frames for transmission interprets received frames, selects frequency channels for communication and manages the duty cycle, ensuring compliance with regional regulations.
+    \item security; The \ac{MAC} layer handles network authentication encryption and decryption, ensuring secure communication between devices and the network.
+    \item adaptive data rate; The \ac{MAC} layer dynamically adjusts the data rate based on network conditions, optimising power consumption and communication range.
+    \item scheduling and coordination; The \ac{MAC} layer schedules transmissions and manages communication between end devices and gateways, avoiding collisions and optimising network performance.
+\end{itemize}
+
+\url{https://sirinsoftware.com/blog/lorawan-mac-layer-definition-architecture-classes-and-more}
+
+\subsubsubsection*{Scheduling: LoRaWAN classes}
+\ac{LoRaWAN} supports different classes of devices. These classes define when an end device is allowed to receive downlinks\footnote{end devices can always send uplinks at will}, allowing for intelligent battery and network usage.
+
+Class A: The key characteristic of Class A is that communication is initiated only by the end device. Downlink messages are queued until the end device establishes an uplink. When a connection is established a Class A end device waits a predetermined amount of time (usually one second), and then briefly opens a receive window (Rx1). If no downlink is received within this timeframe, it waits again and proceeds to open a secondary receive window (Rx2). The figure illustrates the different receive window state possibilities for class A. 
+This device class is the most energy-efficient and must be supported by an end device.
+\url{https://lora-developers.semtech.com/uploads/documents/files/LoRaWAN_Class_A_Devices_In_Depth_Downloadable.pdf}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{figures/ClassA_1.jpg}
+    \caption{Class A. No received downlink}
+    \label{fig:ClassA-no}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{figures/ClassA_2.jpg}
+    \caption{Downlink received in RX1}
+    \label{fig:ClassA-RX1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{figures/ClassA_3.jpg}
+    \caption{Downlink received in RX2}
+    \label{fig:ClassA-RX2}
+\end{figure}
+
+Class B (beaconing): builds on top of Class A, by providing regularly-scheduled receive windows, in addition to those that opens whenever an uplink is sent.
+In class B mode, the end device wakes up after a fixed time interval, ready to receive downlinks. If no downlink is detected, it goes back to sleep. For this to work, the network needs to know when the end device is ready to receive. To do this, the a time-synchronized beacon is broadcast periodically by the network via the gateways, to align the end device internal clock with the network.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{figures/class_B.png}
+    \caption{Class B \url{https://lora-developers.semtech.com/uploads/documents/files/LoRaWAN_Class_B_Devices_In_Depth_Downloadable.pdf}}
+    \label{fig:Class_B}
+\end{figure}
+
+Class C (continuous):
+
+
+\ac{LoRaWAN} Things Stack:
+Gateway server:
+manages gateways and creates secure connections with the network server.
+
+The network server: 
+implements the \ac{LoRaWAN} protocol
+it validates the authenticity and integrity of devices
+Deduplicates uplinks
+Selects the gateways used for downlinks
+Sends ADR commands to optimise the data rate of devices
+
+Hearth of every \ac{LoRaWAN} network/to operate a \ac{LoRaWAN} network you need one.
+Main responsibility:
+- security
+- data routing
+- battery optimisation
+// All the above of \ac{LoRaWAN} nodes
+
+Application server:
+the decryption of the received sensor
+encrypts data sent to the device
+
+Join server:
+stores the root keys of the devices
+Generates session keys to the network server and application server
+
+Identity server:
+registers users, applications, devices and gateways
+
+AES-128-based secure low-power communication for \ac{LoRaWAN} IoT environments K tsai
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/The Things Stack_page-0001.jpg}
+    \caption{setup)}
+    \label{fig:LoRaWAN_stack}
+\end{figure}
 
 
 
 
-The higher the spreading factor, the lower the data rate
-The higher the spreading factor, the longer the range
-The higher the spreading factor, the slower the transmission will be
-The lower the spreading factor, the higher the data rate
-The lower the spreading factor, the shorter the range
-The lower the spreading factor, the faster the transmission will be
-
-
-The higher the spreading factor, the more spectrum it “eats”, but the easier it is for the other side to decode the signal. That means you can use the spreading factor to increase the range at which a LoRa signal can still be successfully demodulated. No need for a bigger antenna, or a more powerful amplifier. It’s all just configuration.
-
-Eating spectrum means that if your bandwidth is fixed (which is the case in LoRaWAN networks, and most LoRa networks), the higher the spreading factor you use, the lower the data rate (symbol rate) you get. The higher the spreading factor, the longer the Time on Air (ToA) — the longer your transmission will take.
-
-This is where the real power of LoRa is. You can decide, in software, whether you need more range, more bandwidth, or shorter transmissions (lower battery use).
-
-
-Sweep rate: how fast the sweep changes
-And the change it sweeps over; the bandwidth,
-
-
-The faster the sweep rate, the more information can be passed
-Slow sweep rate. Easy to decode.
-Spreading factor: in eu 7-12.
 
 
 
 
-\ac{LoRaWAN} specifies how data should be transmitted, how end devices authenticate themselves on the network, how messages are acknowledged, and how devices can go into low-power sleep mode to conserve energy.
 
-\ac{LoRaWAN} supports different classes of devices, allowing for flexibility in applications requiring either periodic or event-driven data transmission.
+
+
+
+
+
+
 
 \ac{DevEUI} (also known as ChipEUI) is like a \ac{MAC} address, a unique identifier for the device. It is a 64-bit number that is assigned to the device by the manufacturer. The \ac{DevEUI} is used to identify the device in the network and is used in the activation process. \ac{JoinEUI} (also known as AppEUI) is a 64-bit number that is used to identify the network server in the activation process. The AppKey is a 128-bit number that is used to encrypt the messages between the device and the network server. The AppKey is used in the activation process to derive the NwkSKey and AppSKey.
 
@@ -121,6 +219,12 @@ Måske vil skal skrive noget om dette
 \subsection{The LoRaCloud ecosystem}
 Join server
 Modem \& geolocation services
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{figures/image2.png}
+    \caption{Enter Caption}
+\end{figure}
 
 \subsection{Geopositioning}
 Geopositioning or geolocation is the process of determining or estimating the geographic position of an object \cite{ISO19130}. This can be done using many different methods, each with strengths and weaknesses regarding workload and accuracy. This thesis focuses on using Wi-Fi and \ac{GNSS} combined with Google\footnote{Google Geolocation API: \hangindent=2em \url{https://developers.google.com/maps/documentation/geolocation/overview}} and Semtechs Geolocation APIs \footnote{LoRa Cloud: \url{https://www.loracloud.com/}} to get a general location of the LR1110 chip.

@@ -240,16 +240,23 @@ A \SI{32}{\mega\hertz} crystal oscillator is the cheapest and lowest power-consu
 A \SI{32}{\mega\hertz} \ac{TCXO}\sbref{app:hardware:tcxo} and a \SI{32.768}{\kilo\hertz} clock source are mandatory by the LR1110 for any \ac{GNSS} operation. Further is the \ac{TCXO} a feature to minimise the power consumption required to perform outdoor geolocation \cite[p.~51, p.~132]{LR1110_user_manual}. The heat of the surroundings influences the crystal oscillators, so no copper planes have been added on the \ac{PCB} where crystal oscillators are placed. %Hvad gør forskellen på 1.6V eller 3.3V supply? 
 
 \subsubsection{Accelerometer}
-We are implementing an accelerometer to determine if the tracker has been still for a long time or has suddenly moved. We chose \hyperref[bom:lis2de12]{LIS2DE12} (datasheet: \sbref{app:hardware:lis2de12}), an ultra-low-power high-performance 3-axis femto accelerometer. \textit{Femto} meaning that it can detect accelerations on the order of femtometers per second squared (\SI{}{\femto\meter/\second^2}), which is a prefix denoting one quadrillionth ($10^{-15}$) and therefor incredibly small. It has \ac{SPI} and \ac{I2C}, but because \ac{I2C} uses much less power because of the slower speed, we will use that communication protocol - we don't need to send a lot of data back and forth fast.
+We are implementing an accelerometer to determine if the tracker has been still for a long time or has suddenly moved. We chose \hyperref[bom:lis2de12]{LIS2DE12} (datasheet: \sbref{app:hardware:lis2de12}), an ultra-low-power high-performance 3-axis femto accelerometer. \textit{Femto} meaning that it can detect accelerations on the order of femtometers per second squared (\SI{}{\femto\meter/\second^2}), which is a prefix denoting one quadrillionth ($10^{-15}$) and therefor incredibly small. It has \ac{SPI} and \ac{I2C}, but because \ac{I2C} uses much less power because of the slower speed, we will use that communication protocol - we don't need to send a lot of data back and forth fast. The wiring diagram of the accelerometer can be seen in fig.~\ref{fig:schematic:LIS2DE12} and as a simple block diagram in fig.~\ref{fig:schematic:accelerometer_halleffectsensor}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\textwidth]{figures/LIS2DE12.png}
+  \caption{Wiring diagram of LIS2DE12.}
+  \label{fig:schematic:LIS2DE12}
+\end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{figures/LIS2DE12.png}
-    \caption{Wiring diagram of LIS2DE12.}
-    \label{fig:schematic:lis2de12}
+    \includegraphics[width=0.6\textwidth]{figures/schematic_flow.png}
+    \caption{Interface between STM32 and accelerometer and hall effect sensor.}
+    \label{fig:schematic:accelerometer_halleffectsensor}
 \end{figure}
 
-It has two independent programmable interrupt generators for free-fall and motion detection. We will use both (\textit{ACC\_INT1} and \textit{ACC\_INT2}.
+It has two independent programmable interrupt generators for free-fall and motion detection. We will use both (\textit{ACC\_INT1} and \textit{ACC\_INT2}).
 
 
 table 3.2.1 
@@ -260,15 +267,8 @@ It also has click-interrupt which could be used to wake up the tracker or config
 
 \textit{C47} and \textit{C48} are defined from the datasheet \sbref{app:hardware:lis2de12}, p. 19)
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.6\textwidth]{figures/STM32_LR1110_interface.png}
-    \caption{Interface between STM32 and LR1110.}
-    \label{fig:stm32_lr1110_interface}
-\end{figure}
-
 \subsubsection{Hall Effect/Magnetic Sensors}
-We are implementing a hall effect sensor to make the tracker waterproof and easier to turn on and off. We chose \hyperref[bom:bu52077gwz]{BU52077GWZ} (datasheet: \sbref{app:hardware:BU52077GWZ}). It has a typical operational current of \SI{5}{\micro\ampere} and can operate at a voltage down to \SI{1.65}{\volt}. It has a normal \ac{GPIO} interface and is therefore easy to implement with a simple interrupt on the STM32. This hall effect chip is therefore ideal to work without application.
+We are implementing a hall effect sensor to make the tracker waterproof and easier to turn on and off. We chose \hyperref[bom:bu52077gwz]{BU52077GWZ} (datasheet: \sbref{app:hardware:BU52077GWZ}) because it has a typical operational current of \SI{5}{\micro\ampere} and can operate at a voltage down to \SI{1.65}{\volt} which is suitable for this project. It has a normal \ac{GPIO} interface and is therefore easy to implement with a simple interrupt on the STM32. This hall effect chip is therefore ideal to work without application. The wiring diagram of the hall effect sensor can be seen in fig.~\ref{fig:schematic:BU52077GWZ} and as a simple block diagram in fig.~\ref{fig:schematic:accelerometer_halleffectsensor}.
 
 \begin{figure}[H]
   \centering
