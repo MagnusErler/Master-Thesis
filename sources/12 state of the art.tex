@@ -36,7 +36,7 @@ More information about \ac{GNSS}, if we need to write more:
 The theoretical maximum range for LoRa is \SI{850}{\kilo\meter} with the current world record standing at \SI{832}{\kilo\meter} (The Things Network sets new \ac{LoRaWAN} transmission record - by Gareth Halfacree).
 However, the practical application of \ac{LoRa} technology is subject to significant attenuation due to environmental obstructions, resulting in substantially diminished operational ranges, as the efficacy of \ac{LoRa} transmissions is heavily contingent upon the positioning of the receiver. Indoor deployments typically yield ranges of approximately \SI{500}{\meter}, whereas outdoor placements atop buildings extend this range to around \SI{2}{\kilo\meter}, and further elevation atop tall antennas may facilitate transmission distances exceeding \SI{10}{\kilo\meter}.
 
-As shown in figure \ref{fig:LoRa_bandwidth_range} other low-power communication technologies exist, each with different advantages and disadvantages. However as \ac{LoRa} is the only protocol the LR1110-chip implements at this point, it is chosen as a wireless communication protocol for this project.
+As shown in fig.~ \ref{fig:LoRa_bandwidth_range} other low-power communication technologies exist, each with different advantages and disadvantages. However as \ac{LoRa} is the only protocol the LR1110-chip implements at this point, it is chosen as a wireless communication protocol for this project.
 Considerations around the communication protocol and \ac{LoRa} versus protocols with similar purposes will be presented in section \textcolor{red}{indsæt reference}.
 
 \begin{figure}[H]
@@ -50,7 +50,7 @@ Considerations around the communication protocol and \ac{LoRa} versus protocols 
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.5\linewidth]{figures/image.png}
+    \includegraphics[width=0.7\linewidth]{figures/image.png}
     \caption{\url{https://sirinsoftware.com/blog/lorawan-mac-layer-definition-architecture-classes-and-more}}
     \label{fig:enter-label}
 \end{figure}
@@ -60,7 +60,7 @@ LoRa, derived from Chirp Spread Spectrum (CSS) technology, encodes information o
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{figures/linear-chirp-up-signal.png}
+    \includegraphics[width=0.9\textwidth]{figures/linear-chirp-up-signal.png}
     \caption{Linear up-chirp signal: (a) Time domain representation. The signal's frequency increases linearly as time passes; (b) The variation of the frequency of the signal that is illustrated in panel (a). Rework from: \url{https://www.researchgate.net/figure/Linear-up-chirp-signal-a-Time-domain-representation-The-signals-frequency-increases_fig4_341373286}}
     \label{fig:LoRa-upchirp}
 \end{figure}
@@ -74,7 +74,7 @@ We want to go into much detail about how the technology works but will stick to 
 \textbf{Bandwidth (BW):} is the frequency range that the signal sweeps over. Increasing the bandwidth, increases the data rate (decreases \ac{ToA}), but reduces the resistance to noise and interference, and therefore the range. Making the bandwidth 2x wider (from BW125 to BW250) allows you to send 2x more bytes at the same time.
 In Europe, the bandwidth is restricted to \SI{125}{\kilo\hertz} and \SI{250}{\kilo\hertz}.
 
-\textbf{Spreading factor (SF):} is a word for how fast the sweep changes over the chosen bandwidth. The faster the sweep rate, the more information can be passed in a shorter time decreasing the \ac{ToA}, but making the signal more sensitive to noise which decreases the range. Making the \ac{SF} one step lower (from SF10 to SF9) allows you to send 2 times more bytes at the same time.
+\textbf{Spreading factor (SF):} is a word for how fast the sweep changes over the chosen bandwidth. The quicker the sweep rate, the more information can be passed in a shorter time decreasing the \ac{ToA}, but making the signal more sensitive to noise which reduces the range. Making the \ac{SF} one step lower (from SF10 to SF9) allows you to send 2 times more bytes simultaneously.
 
 \begin{figure}[H]
     \centering
@@ -114,39 +114,39 @@ This device class is the most energy-efficient and must be supported by an end d
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\linewidth]{figures/ClassA_1.jpg}
-    \caption{Class A. No received downlink}
+    \includegraphics[width=0.7\linewidth]{figures/ClassA_1.jpg}
+    \caption{Class A. No received downlink.}
     \label{fig:ClassA-no}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\linewidth]{figures/ClassA_2.jpg}
-    \caption{Downlink received in RX1}
+    \includegraphics[width=0.7\linewidth]{figures/ClassA_2.jpg}
+    \caption{Downlink received in RX1.}
     \label{fig:ClassA-RX1}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\linewidth]{figures/ClassA_3.jpg}
-    \caption{Downlink received in RX2}
+    \includegraphics[width=0.7\linewidth]{figures/ClassA_3.jpg}
+    \caption{Downlink received in RX2.}
     \label{fig:ClassA-RX2}
 \end{figure}
 
-Class B (beaconing): builds on top of Class A, by providing regularly-scheduled receive windows, in addition to those that opens whenever an uplink is sent.
-In class B mode, the end device wakes up after a fixed time interval, ready to receive downlinks. If no downlink is detected, it goes back to sleep. For this to work, the network needs to know when the end device is ready to receive. To do this, the a time-synchronized beacon is broadcast periodically by the network via the gateways, to align the end device internal clock with the network.
+Class B (beaconing): builds on top of Class A, by providing regularly scheduled receive windows, in addition to those that open whenever an uplink is sent.
+In class B mode, the end device wakes up after a fixed time interval, ready to receive downlinks. If no downlink is detected, it goes back to sleep. For this to work, the network needs to know when the end device is ready to receive. To do this, a time-synchronized beacon is broadcast periodically by the network via the gateways, to align the end device internal clock with the network.
 
-\begin{figure}
+\begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\linewidth]{figures/class_B.png}
-    \caption{Class B \url{https://lora-developers.semtech.com/uploads/documents/files/LoRaWAN_Class_B_Devices_In_Depth_Downloadable.pdf}}
+    \includegraphics[width=0.7\linewidth]{figures/class_B.png}
+    \caption{Class B \url{https://lora-developers.semtech.com/uploads/documents/files/LoRaWAN_Class_B_Devices_In_Depth_Downloadable.pdf}.}
     \label{fig:Class_B}
 \end{figure}
 
-Class C (continuous):
+Class C (continuous): implements the same schedule as class A with two receive windows, but they do not close the RX2 window until they send the next transmission.
 
+\subsubsubsection*{LoRaWAN Things Stack:}
 
-\ac{LoRaWAN} Things Stack:
 Gateway server:
 manages gateways and creates secure connections with the network server.
 
@@ -222,7 +222,7 @@ Modem \& geolocation services
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.5\linewidth]{figures/image2.png}
+    \includegraphics[width=0.7\linewidth]{figures/image2.png}
     \caption{Enter Caption}
 \end{figure}
 
@@ -272,7 +272,7 @@ The \ac{GNSS} scanner of the LR1110 has two modes of operation: autonomous and a
 
 \subsubsubsection{Autonomous GNSS Scanning}
 The LR1110 will not require any assistance information in this mode. A fast search of all \ac{SV}s with strong signals in the
-selected constellation is performed, and all the \ac{SV}s received with a signal better than RXSGPS1E\footnote{RXSGPS1E: GPS, indoor classification, and strong signal SV capture. Typ. \SI{-134}{\dB}\cite{LR1110_datasheet}} are detected.
+selected constellation is performed, and all the \ac{SV}s received with a signal better than RXSGPS1E\footnote{RXSGPS1E: GPS, indoor classification, and strong signal \ac{SV} capture. Typ. \SI{-134}{\dB}\cite{LR1110_datasheet}} are detected.
 This mode can be used to determine if the device stands indoors or outdoors; in case no \ac{SV} with a strong signal is detected, the application concludes that the device is indoors. Therefore the search for weak signals, which takes more time and energy, can be discarded; the search for other signals of opportunity, like Wi-Fi, might be launched instead.
 
 \subsubsubsection{Assisted GNSS Scanning}

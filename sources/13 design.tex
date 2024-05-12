@@ -231,7 +231,7 @@ For the main communication of the tracker, the project uses an ultra-low-power A
     \label{fig:chips}
 \end{figure}
 
-\subsubsection{RF Transceiver}
+\subsubsection{RF Transceiver and Receiver}
 The \hyperref[bom:lr1110]{LR1110} chip (datasheet: \sbref{app:hardware:lr1110}) is a \ac{LoRa} RF Transceiver with inbuilt Wi-Fi and \ac{GNSS} scanner and is used for geolocation. Wi-Fi includes scanning for 802.11b/g/n Wi-Fi access point \ac{MAC} addresses (\SI{2.4}{\giga\hertz}), while the \ac{GNSS} scanning searches for \ac{GPS}\footnote{GPS: \url{https://www.gps.gov/}}, BeiDou\footnote{BeiDou Navigation Satellite System: \url{http://en.beidou.gov.cn/}}, and geostationary satellite signals. \ac{GNSS} and Wi-Fi scan data is collected on the device and sent to a cloud-based solver to resolve into a position. Semtech provides a Cloud API (fees apply).
 cite to LR1110 driver \cite{lr11xx_driver}.
 
@@ -249,15 +249,7 @@ We are implementing an accelerometer to determine if the tracker has been still 
   \label{fig:schematic:LIS2DE12}
 \end{figure}
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.6\textwidth]{figures/schematic_flow.png}
-    \caption{Interface between STM32 and accelerometer and hall effect sensor.}
-    \label{fig:schematic:accelerometer_halleffectsensor}
-\end{figure}
-
-It has two independent programmable interrupt generators for free-fall and motion detection. We will use both (\textit{ACC\_INT1} and \textit{ACC\_INT2}).
-
+\textit{C47} and \textit{C48} are defined from the datasheet \sbref{app:hardware:lis2de12}, p. 19). The accelerometer has two independent programmable interrupt generators for free-fall and motion detection. We will use both (\textit{ACC\_INT1} and \textit{ACC\_INT2}) to determine if the tracker has moved.
 
 table 3.2.1 
 
@@ -265,7 +257,12 @@ Do we need to enable all axes?
 
 It also has click-interrupt which could be used to wake up the tracker or configure it.
 
-\textit{C47} and \textit{C48} are defined from the datasheet \sbref{app:hardware:lis2de12}, p. 19)
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figures/schematic_flow.png}
+    \caption{Interface between STM32 and accelerometer and hall effect sensor.}
+    \label{fig:schematic:accelerometer_halleffectsensor}
+\end{figure}
 
 \subsubsection{Hall Effect/Magnetic Sensors}
 We are implementing a hall effect sensor to make the tracker waterproof and easier to turn on and off. We chose \hyperref[bom:bu52077gwz]{BU52077GWZ} (datasheet: \sbref{app:hardware:BU52077GWZ}) because it has a typical operational current of \SI{5}{\micro\ampere} and can operate at a voltage down to \SI{1.65}{\volt} which is suitable for this project. It has a normal \ac{GPIO} interface and is therefore easy to implement with a simple interrupt on the STM32. This hall effect chip is therefore ideal to work without application. The wiring diagram of the hall effect sensor can be seen in fig.~\ref{fig:schematic:BU52077GWZ} and as a simple block diagram in fig.~\ref{fig:schematic:accelerometer_halleffectsensor}.
@@ -330,7 +327,7 @@ The STM32 and LR1110 communication is through \ac{SPI} (see fig.~\ref{fig:stm32_
 
 The \textit{BUSY} signal is used as a handshake to indicate if the LR1110 is ready to accept a command. Therefore, it is necessary to check the status of \textit{BUSY} before sending a command.
 
-The \textit{EVENT} signal is an output signal of the LR1110. This line signals to the STM32 that the device has an asynchronous event data pending. The event can be \ac{LoRaWAN} stack, \ac{GNSS}, or Wi-Fi events. The STM32 must use the \lstinline[style=C++]{GetEventSize(...)} command to determine the event size and \lstinline[style=C++]{GetEvent(...)} command to retrieve such data. The \textit{EVENT} signal stays high until all events are cleared. The STM32 must clear all the events before returning to sleep mode. This prevents the hit from missing the rising edge of the \textit{EVENT} signal when there is a new event. Secondly, this saves several of \SI{}{\micro\ampere} of current consumption when the \textit{EVENT} signal is kept low by the LR1110.
+The \textit{EVENT} signal is an output signal of the LR1110. This line signals to the STM32 that the device has an asynchronous event data pending. The event can be \ac{LoRaWAN} stack, \ac{GNSS}, or Wi-Fi events. The STM32 must use the \lstinline[style=C++]{GetEventSize(...)} command to determine the event size and \lstinline[style=C++]{GetEvent(...)} command to retrieve such data. The \textit{EVENT} signal stays high until all events are cleared. The STM32 must clear all the events before returning to sleep mode. This prevents the hit from missing the rising edge of the \textit{EVENT} signal when there is a new event. Secondly, this saves several \SI{}{\micro\ampere} of current consumption when the \textit{EVENT} signal is kept low by the LR1110.
 
 Fig.~\ref{fig:event_example} shows an example of a Wi-Fi passive scan transaction. The STM32 sends a command to the LR1110 to scan for Wi-Fi \ac{AP}s. The LR1110 scans the Wi-Fi \ac{AP}s and stores the data in its internal memory. When the scan is complete, the LR1110 sets the \textit{EVENT} signal high to indicate that there is data to be read. The STM32 then reads the data from the LR1110 with \lstinline[style=C++]{GetEventsize(...)} and \lstinline[style=C++]{GetEvent(...)}, which afterwards then clears the \textit{EVENT} signal.
 
@@ -407,7 +404,7 @@ What is ultra-low power and what is low power?
 Maybe it won't be easy to write since it is probably an iterative process. We test which methods work best, and then change something until we have found the best method.
 
 
-For a stable power supply, we are using the \ac{LDO} Voltage Regulators \hyperref[bom:xc6220]{XC6220B331MR} (datasheet: \sbref{app:hardware:XC6220}). The chip is a \SI{3.3}{\volt} voltage regulator with a input voltage ranging from \SI{1.6}{\volt} to \SI{6.0}{\volt} and a maximum output current of \SI{1000}{\milli\ampere}. The quiescent current is \SI{8}{\micro\ampere} and the dropout voltage is around \SI{20}{\milli\volt}. A voltage regulator is crucial for any battery-powered device. It has high power- and low power mode, which means the quiescent current and dropout voltage can be reduced if the device is in low power mode. When the output current is less than \SI{1}{\milli\ampere} (minimum), the quiescent current is reduced to \SI{8}{\micro\ampere}. If the output current becomes \SI{10}{\milli\ampere} (maximum) or more, the mode changes automaticcaly to the high power mode and the chip returns to high speed operation.
+For a stable power supply, we are using the \ac{LDO} Voltage Regulators \hyperref[bom:xc6220]{XC6220B331MR} (datasheet: \sbref{app:hardware:XC6220}). The chip is a \SI{3.3}{\volt} voltage regulator with a input voltage ranging from \SI{1.6}{\volt} to \SI{6.0}{\volt} and a maximum output current of \SI{1000}{\milli\ampere}. The quiescent current is \SI{8}{\micro\ampere} and the dropout voltage is around \SI{20}{\milli\volt}. A voltage regulator is crucial for any battery-powered device. It has high power- and low power modes, which means the quiescent current and dropout voltage can be reduced if the device is in low power mode. When the output current is less than \SI{1}{\milli\ampere} (minimum), the quiescent current is reduced to \SI{8}{\micro\ampere}. If the output current becomes \SI{10}{\milli\ampere} (maximum) or more, the mode changes automatically to the high power mode and the chip returns to high-speed operation.
 
 \subsection{PCB Design}
 We are using EasyEDA\footnote{\url{https://easyeda.com/}} to design the \ac{PCB} and JLCPCB\footnote{\url{https://jlcpcb.com/}} to manufacture them.
@@ -664,7 +661,7 @@ Setup for our application:
 7.
 8.
 
-If a new location has been found but it is close to the previous lcoation (e.g. radius of \SI{5}{\meter}) that location will not be shown on the map, but however updated as the device has been seen.
+If a new location has been found but it is close to the previous location (e.g. radius of \SI{5}{\meter}) that location will not be shown on the map, but however updated as the device has been seen.
 
 Future work:
 Låst til TheThingsNetwork
