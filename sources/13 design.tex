@@ -312,6 +312,12 @@ For communicating with the STM32-chip over \ac{USART} use the \textit{USART2} in
 
 The ST-LINK/V2-1 is connected to the computer through \ac{USB}, and the STM32-chip is powered through the ST-LINK/V2-1. The STM32 is flashed with Visual Studio Code or the STM32CubeProgrammer\footnote{\url{https://www.st.com/en/development-tools/stm32cubeprog.html}}, which is a software tool to flash and debug STM32 microcontrollers. Here the STM32 can be debugged, which is done by setting breakpoints in the code and running the code step by step.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figures/STM32_interface.png}
+    \caption{Overview of the connection between STM32 and the host.}
+\end{figure}
+
 \subsection{Choosing transceiver firmware}
 It would take up to 6 months longer to implement our own \ac{LoRa} stack
 
