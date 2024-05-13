@@ -15,7 +15,7 @@ Bluetooth trackers on the other hand connect to your or nearby phones and then u
 
 % STORK: https://tektelic.com/wp-content/uploads/STORK-Asset-Tracker.pdf
 
-The most popular Bluetooth trackers are the Apple AirTag\footnote{\url{https://www.apple.com/airtag/}} and Tile.
+The most popular Bluetooth trackers are the Apple AirTag\footnote{Apple AirTag: \url{https://www.apple.com/airtag/}} and Tile.\\
 Pros:
 \begin{itemize}
   \item Compact and Lightweight: Most Bluetooth trackers are small and lightweight, making them easy to attach to various items without adding bulk or weight.
@@ -199,7 +199,7 @@ Technical details & Should have a battery life of minimum 10000 indoor tracings 
                   & Should turn on within \SI{10}{\second} from standby                                                                      \\
                   & Should turn on within \SI{60}{\second} from cold boot                                                                    \\
                   & Should go to deep sleep when not moving                                                                             \\
-                  & Should automatically determine whether to use W-Fi or \ac{GNSS}                                                          \\
+                  & Should automatically determine whether to use Wi-Fi or \ac{GNSS}                                                          \\
                   & Should have an accuracy of $\pm$50 meter                                                                              
 \end{tabular}%
 \end{table}
@@ -215,7 +215,7 @@ Operating costs
 Building a geolocation tracker requires transmitters, receivers, and most importantly, a device which controls the whole system. Furthermore, efficient communication between the single elements is important and will be investigated in this project. The following sections describe and discuss these aspects, emphasising challenges and pitfalls.
 
 \subsubsection{Microcontroller}
-For the main communication of the tracker, the project uses an ultra-low-power Arm\textsuperscript{\textregistered} Cortex\textsuperscript{\textregistered}-M4 32-bit \hyperref[bom:stm32l476]{STM32L476} chip (datasheet: \sbref{app:hardware:stm32l476rg}). It has \SI{512}{\kilo\byte} flash and a built-in internal voltage regulator and voltage scaling, that makes the chip particularly suited for portable battery-supplied products, down to \SI{1.71}{\volt} \cite{STM32L4_application_note}. It also possesses \ac{SPI} and \ac{I2C} for communication with different chips on the \ac{PCB}, and \ac{USART} for debugging sent to the user's machine. As the size of the firmware is around \SI{250}{\kilo\byte}, the chip does not need more than \SI{512}{\kilo\byte} in flash memory.
+For the main communication of the tracker, the project uses an ultra-low-power Arm\textsuperscript{\textregistered} Cortex\textsuperscript{\textregistered}-M4 32-bit \hyperref[bom:stm32l476]{STM32L476} chip (datasheet: \sbref{app:hardware:stm32l476rg}) by STMicroelectronics\footnote{STMicroelectronics: \url{https://www.st.com/content/st_com/en.html}}. It has \SI{512}{\kilo\byte} flash and a built-in internal voltage regulator and voltage scaling, that makes the chip particularly suited for portable battery-supplied products, down to \SI{1.71}{\volt} \cite{STM32L4_application_note}. It also possesses \ac{SPI} and \ac{I2C} for communication with different chips on the \ac{PCB}, and \ac{USART} for debugging sent to the user's machine. As the size of the firmware is around \SI{250}{\kilo\byte}, the chip does not need more than \SI{512}{\kilo\byte} in flash memory.
 
 \begin{figure}[H]
     \centering
@@ -232,7 +232,7 @@ For the main communication of the tracker, the project uses an ultra-low-power A
 \end{figure}
 
 \subsubsection{RF Transceiver and Receiver}
-The \hyperref[bom:lr1110]{LR1110} chip (datasheet: \sbref{app:hardware:lr1110}) is a \ac{LoRa} RF Transceiver with inbuilt Wi-Fi and \ac{GNSS} scanner and is used for geolocation. Wi-Fi includes scanning for 802.11b/g/n Wi-Fi access point \ac{MAC} addresses (\SI{2.4}{\giga\hertz}), while the \ac{GNSS} scanning searches for \ac{GPS}\footnote{GPS: \url{https://www.gps.gov/}}, BeiDou\footnote{BeiDou Navigation Satellite System: \url{http://en.beidou.gov.cn/}}, and geostationary satellite signals. \ac{GNSS} and Wi-Fi scan data is collected on the device and sent to a cloud-based solver to resolve into a position. Semtech provides a Cloud API (fees apply).
+The \hyperref[bom:lr1110]{LR1110} chip (datasheet: \sbref{app:hardware:lr1110}) is a \ac{LoRa} RF Transceiver by Semtech\footnote{Semtech: \url{https://www.semtech.com/}} with inbuilt Wi-Fi and \ac{GNSS} scanner and is used for geolocation. Wi-Fi includes scanning for 802.11b/g/n Wi-Fi access point \ac{MAC} addresses (\SI{2.4}{\giga\hertz}), while the \ac{GNSS} scanning searches for \ac{GPS}, BeiDou, and geostationary satellite signals. \ac{GNSS} and Wi-Fi scan data is collected on the device and sent to a cloud-based solver to resolve into a position. Semtech provides a Cloud API (fees apply).
 cite to LR1110 driver \cite{lr11xx_driver}.
 
 \subsubsection{Temperature Compensated Crystal Oscillator (TCXO)}
@@ -290,7 +290,8 @@ We are using a passive \ac{GNSS} antenna which means it has no external electric
 \end{figure}
 
 \subsection{Flash and debug a STM32 chip} \label{sec:flash_debug_stm32}
-Flashing and debugging any STM32 chip is straightforward. All that is needed is an ST-LINK/V2-1\footnote{\url{https://www.st.com/en/development-tools/st-link-v2.html}} or any STM32 Nucleo board (which already has an ST-LINK/V2-1 built-in). The ST-LINK/V2-1 is connected to the STM32 chip through the \ac{SWD} interface, which is a two-wire interface consisting of a clock (\textit{SWDCLK}) and a data line (\textit{SWDIO}). 
+Flashing and debugging any STM32 chip is straightforward. All that is needed is an ST-LINK/V2-1\footnote{ST-
+LINK/V2-1: \url{https://www.st.com/en/development-tools/st-link-v2.html}} or any STM32 Nucleo board (which already has an ST-LINK/V2-1 built-in). The ST-LINK/V2-1 is connected to the STM32 chip through the \ac{SWD} interface, which is a two-wire interface consisting of a clock (\textit{SWDCLK}) and a data line (\textit{SWDIO}). 
 
 \begin{figure}[H]
   \centering
@@ -310,11 +311,11 @@ Per default, the ST-LINK/V2-1 is connected to the in-built STM32-chip on the STM
 
 For communicating with the STM32-chip over \ac{USART} use the \textit{USART2} interface available on \textit{PA2} and \textit{PA3} of the STM32-chip. To enable the \ac{USART} communication between the ST-LINK/V2-1 and an external application, the related solder bridges \textit{SB13} and \textit{SB14} must be OFF (and \textit{SB62} and \textit{SB63} must be ON if using a Nucleo board and not having cut the board into an ST-LINK part and target STM32 part)\cite[p.~25]{STM32_Nucleo_user_manual}.
 
-The ST-LINK/V2-1 is connected to the computer through \ac{USB}, and the STM32-chip is powered through the ST-LINK/V2-1. The STM32 is flashed with Visual Studio Code or the STM32CubeProgrammer\footnote{\url{https://www.st.com/en/development-tools/stm32cubeprog.html}}, which is a software tool to flash and debug STM32 microcontrollers. Here the STM32 can be debugged, which is done by setting breakpoints in the code and running the code step by step.
+The ST-LINK/V2-1 is connected to the computer through \ac{USB}, and the STM32-chip is powered through the ST-LINK/V2-1. The STM32 is flashed with Visual Studio Code or the STM32CubeProgrammer\footnote{STM32CubeProgrammer: \url{https://www.st.com/en/development-tools/stm32cubeprog.html}}, which is a software tool to flash and debug STM32 microcontrollers. Here the STM32 can be debugged, which is done by setting breakpoints in the code and running the code step by step.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\textwidth]{figures/STM32_interface.png}
+    \includegraphics[width=0.6\textwidth]{figures/STM32_interface.png}
     \caption{Overview of the connection between STM32 and the host.}
 \end{figure}
 
@@ -413,7 +414,7 @@ Maybe it won't be easy to write since it is probably an iterative process. We te
 For a stable power supply, we are using the \ac{LDO} Voltage Regulators \hyperref[bom:xc6220]{XC6220B331MR} (datasheet: \sbref{app:hardware:XC6220}). The chip is a \SI{3.3}{\volt} voltage regulator with a input voltage ranging from \SI{1.6}{\volt} to \SI{6.0}{\volt} and a maximum output current of \SI{1000}{\milli\ampere}. The quiescent current is \SI{8}{\micro\ampere} and the dropout voltage is around \SI{20}{\milli\volt}. A voltage regulator is crucial for any battery-powered device. It has high power- and low power modes, which means the quiescent current and dropout voltage can be reduced if the device is in low power mode. When the output current is less than \SI{1}{\milli\ampere} (minimum), the quiescent current is reduced to \SI{8}{\micro\ampere}. If the output current becomes \SI{10}{\milli\ampere} (maximum) or more, the mode changes automatically to the high power mode and the chip returns to high-speed operation.
 
 \subsection{PCB Design}
-We are using EasyEDA\footnote{\url{https://easyeda.com/}} to design the \ac{PCB} and JLCPCB\footnote{\url{https://jlcpcb.com/}} to manufacture them.
+We are using EasyEDA\footnote{EasyEDA: \url{https://easyeda.com/}} to design the \ac{PCB} and JLCPCB\footnote{JLCPCB: \url{https://jlcpcb.com/}} to manufacture them.
 
 \subsubsection{Impedance}
 For determining the impedance and maintaining this throughout the \ac{PCB}, the layout of the components and stackup of the \ac{PCB} is important. We chose a 4-layer \ac{PCB} as this is preferable to optimise \ac{RF} \ac{PCB} layout, especially if there is dense routing. 
@@ -444,7 +445,7 @@ Choosing JCLPSB's JLC04101H-7628 Stackup has a dielectric constant of $\kappa = 
     Bottom Layer & \cellcolor{copper_green}Copper & \SI{0.035}{\milli\meter}
     \end{tabular}
 \end{table}
-\footnotetext{\url{https://jlcpcb.com/impedance}}
+\footnotetext{JLCPCB impedance control: \url{https://jlcpcb.com/impedance}}
 
 To calculate the transmission line characteristic impedance [$\Omega$] we will use Coplanar Waveguide by AppCAD \sbref{app:software:appcad}. Fig.~\ref{fig:appcad} shows the top layer, prepreg, and the internal ground plane.
 
@@ -541,23 +542,23 @@ We have set up requirements for this in the product requirements, so here you ca
 We have probably made several different prototypes. Chalk it up to the theory of prototypes.
 
 \subsection{Cost}
-LR1110 ordered from DigiKey Denmark\footnote{\url{https://www.digikey.dk/}} where it cost \SI{72.23}{\dkk} per chip. Ordering the rest from JLCPCB costs $\$2$ for the \ac{PCB} and an extra $\$35.61$ for the assembly of the components (5 \ac{PCB}). With shipping ($\$24.60$) and customs duties ($\$24.31$) the total amount is $\$86,52$. With the LR1110 chip, it is around \SI{193}{\dkk}.
+LR1110 ordered from DigiKey Denmark\footnote{DigiKey Denmark: \url{https://www.digikey.dk/}} where it cost \SI{72.23}{\dkk} per chip. Ordering the rest from JLCPCB costs $\$2$ for the \ac{PCB} and an extra $\$35.61$ for the assembly of the components (5 \ac{PCB}). With shipping ($\$24.60$) and customs duties ($\$24.31$) the total amount is $\$86,52$. With the LR1110 chip, it is around \SI{193}{\dkk}.
 
 The prices of key components are listed below in tab.~\ref{tab:BOM_keycomponents}. The rest of the \ac{BOM} in further detail can be viewed in app.~\ref{app:BOM}.
 
 \begin{table}[H]
 \centering
-\small
+\footnotesize
 \caption{BOM of key components.}
 \label{tab:BOM_keycomponents}
 \begin{tabular}{l|l|l|l|l|l}
 Name & Designator & Footprint & Manufacturer Part & Manufacturer & Price [\$] \\ \hline
-STM32L476 & U1 & LQFP-64 & STM32L476RET6 & ST & 2.924 \\
+STM32L476 & U1 & LQFP-64 & STM32L476RET6 & STMicroelectronics & 2.924 \\
 LR1110 & U2 & QFN-50 & LR1110IMLTRT & Semtech & 10.54 \\
 SKY13588-460LF & U3 & QFN-12 & SKY13588-460LF & SKYWORKS & 2.254 \\
-BGA524N6E6327 & U4 & TSNP-6 & BGA 524N6 E6327 & Infineon & 0.286 \\
+BGA524N6E6327 & U4 & TSNP-6 & BGA524N6E6327 & Infineon & 0.286 \\
 XC6220B331MR & U5 & SOT23-5 & XC6220B331MR & TECH PUBLIC & 0.179 \\
-LIS2DE12TR & U6 & LGA-12 & LIS2DE12TR & ST & 0.469 \\
+LIS2DE12TR & U6 & LGA-12 & LIS2DE12TR & STMicroelectronics & 0.469 \\
 BU52077GWZ & U7 & BGA-4 & BU52077GWZ & ROHM & 0.177 \\
 \end{tabular}
 \end{table}
@@ -632,7 +633,7 @@ Battery status
 
 \subsection{Application}
 
-ngrok\footnote{\url{https://ngrok.com/}}
+ngrok\footnote{ngrok: \url{https://ngrok.com/}}
 
 One predominant requirement derived from our interviews was the need for a simple setup process for our device and an easy-to-use application for presenting the data.
 Despite the growing adoption of \ac{LoRaWAN}-enabled devices, network setup remains considerably more intricate than devices that utilise Wi-Fi or cellular networks for data transmission which mostly work out of the box. Wi-Fi devices merely require access to an access point and a network password, and cellular devices only necessitate a SIM card, where the technical part of joining the network is left to the network provider. \ac{LoRaWAN}-enabled device on the other hand entails several additional considerations. You need to think about provisioning, choice of network and network coverage, network protocol version and regional requirements.
@@ -678,7 +679,7 @@ When developing a web application, there is no need to reinvent the wheel and co
 
 \subsubsection{Client-side}
 Many different frameworks or libraries could have been chosen for the client side of our application. We chose React as we have prior experience with it and its prominence as one of the most used web technologies (source: \url{https://survey.stackoverflow.co/2023/#technology-most-popular-technologies}), offered extensive availability of libraries, online resources and community support.
-Leaflet\footnote{\url{https://leafletjs.com/}} was chosen for displaying the map, as it is the leading open-source JavaScript library for mobile-friendly interactive maps. We could have chosen to use Google's map service, as it would have offered familiarity (a wish we saw in our interviews). However this service isn't free, and will therefore add a cost to the product, and the price was the bigger factor for all users, and the interaction with Leaflet is quite similar to how you interact with Google Maps.
+Leaflet\footnote{Leaflet: \url{https://leafletjs.com/}} was chosen for displaying the map, as it is the leading open-source JavaScript library for mobile-friendly interactive maps. We could have chosen to use Google's map service, as it would have offered familiarity (a wish we saw in our interviews). However this service isn't free, and will therefore add a cost to the product, and the price was the bigger factor for all users, and the interaction with Leaflet is quite similar to how you interact with Google Maps.
 
 \subsubsection{Server-side}
 Express

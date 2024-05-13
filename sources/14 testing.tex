@@ -6,8 +6,8 @@ The design and its implementation have been thoroughly tested.
 \begin{enumerate}
     \item Test if it uses less power to have a timer on STM that turns the accelerometer on and off
     \item Which temperature sensor uses less power?
-    \item VBAT can be measured from STM and LR-chip
-    \item Does the accelerometer use more power when reading temp?
+    \item VBat can be measured from STM and LR1110-chip
+    \item Does the accelerometer use more power when reading temperature?
     \item Send VBat and temp with each upload to TTN?
     \item How much power does it use to set all registers at once or one after one in the accelerometer
     \item Does it make sense to use power-down mode instead of \SI{1}{\hertz}?
@@ -25,11 +25,11 @@ Testing the accuracy is done by looking at the accuracy value of the GPS module,
 \subsection{Power consumption}
 How much power the device uses in the different modes
 
-We used the Power Profiler Kit II\footnote{\url{https://www.nordicsemi.com/Products/Development-hardware/Power-Profiler-Kit-2}} from Nordic Semiconductor to measure the device's power consumption.
+We used the Power Profiler Kit II\footnote{Power Profiler Kit II: \url{https://www.nordicsemi.com/Products/Development-hardware/Power-Profiler-Kit-2}} from Nordic Semiconductor to measure the device's power consumption.
 
 Power Profiler v4.0.0
 
-To visualise the data we used the app Power Profiler from nRF Connect for Desktop\footnote{\url{https://www.nordicsemi.com/Products/Development-tools/nRF-Connect-for-Desktop}} which also is a tool from Nordic Semiconductor.
+To visualise the data we used the app Power Profiler from nRF Connect for Desktop\footnote{nRF Connect for Desktop: \url{https://www.nordicsemi.com/Products/Development-tools/nRF-Connect-for-Desktop}} which also is a tool from Nordic Semiconductor.
 
 \subsection{Results according to design/performance criteria}
 How does the product meet our design criteria
