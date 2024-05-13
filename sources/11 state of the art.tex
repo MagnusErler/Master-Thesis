@@ -6,7 +6,7 @@ This section overviews the foundational knowledge vital for developing a product
 Serial communication is a broad term that refers to any form of data transmission in which bits are sent sequentially, one after the other, over a single communication channel, which encompasses various serial communication methods, including \ac{I2C}, \ac{USART}, \ac{SPI} and others. These methods may differ in protocol, hardware requirements, speed, and application.
 
 \subsubsubsection*{Universal Synchronous and Asynchronous Receiver/Transmitter (USART)}
-\ac{USART}, is a half-duplex, asynchronous interface, and a widely used serial communication interface employed in microcontrollers, embedded systems, and various electronic devices. \ac{USART} enables asynchronous, non-simultaneous (half-duplex) data transmission between devices via dedicated TX and RX lines and a shared ground without a shared clock signal. This allows for greater flexibility in communication between devices operating at different speeds and with varying clock characteristics. Moreover, its asynchronous operation simplifies hardware implementation, promotes cross-platform compatibility, and renders it cost-effective and straightforward to deploy \cite{UART1}, \cite{UART2}.
+\ac{USART}, is a half-duplex, asynchronous interface, and a widely used serial communication interface employed in microcontrollers, embedded systems, and various electronic devices. \ac{USART} enables asynchronous, non-simultaneous (half-duplex) data transmission between devices via dedicated \textit{TX} and \textit{RX} lines and a shared ground without a shared clock signal. This allows for greater flexibility in communication between devices operating at different speeds and with varying clock characteristics. Moreover, its asynchronous operation simplifies hardware implementation, promotes cross-platform compatibility, and renders it cost-effective and straightforward to deploy \cite{UART1}, \cite{UART2}.
 
 \subsubsubsection*{Serial Peripheral Interface (SPI)}
 \ac{SPI} is a full-duplex, synchronous interface, and one of the most widely used between microcontroller and peripheral ICs such as sensors, ADCs, DACs, shift registers, SRAM, and others. It operates on a master-slave model, on a four-wire configuration, encompassing shared \ac{MOSI}, \ac{MISO}, and \ac{SCK} lines, complemented by individual \ac{SS} lines for each distinct device in a multi-slave environment.
@@ -17,11 +17,11 @@ Further differentiating \ac{SPI} is its full-duplex capability, which permits si
 Compared to \ac{USART}, \ac{SPI} boasts superior speed and supports multiple peripherals. However it still requires more signal lines (wires) than other communications methods, as each peripheral requires a \ac{SS} line, and communication remains centralised under the master device, precluding direct communication between peripheral devices \cite{SPI_analog}, \cite{SPI_sparkfun}, \cite{SPI_wiki}.
 
 \subsubsection{Wi-Fi}
-Wi-Fi is a part of a wireless network protocol based on the technical standard IEEE 802.11\footnote{\url{https://www.ieee802.org/11/}}. For most people, Wi-Fi is synonymous with wireless internet access. However, the LR1110 chip does not use Wi-Fi in its conventional role as a data conduit. Instead, it serves as a tool for geolocation through Wi-Fi sniffing, harnessing access point signals to determine the device location. This method is explained in section %\ref{indsæt ref}
+Wi-Fi is a part of a wireless network protocol based on the technical standard IEEE 802.11\footnote{Technical standard IEEE 802.11: \url{https://www.ieee802.org/11/}}. For most people, Wi-Fi is synonymous with wireless internet access. However, the LR1110 chip does not use Wi-Fi in its conventional role as a data conduit. Instead, it serves as a tool for geolocation through Wi-Fi sniffing, harnessing access point signals to determine the device location. This method is explained in section %\ref{indsæt ref}
 
 \subsubsection{Global Navigation Satellite System (GNSS)}
 \ac{GNSS} is the general term for any satellite constellations that orbit the Earth and provides radio-based positioning, navigation, and timing information to users worldwide. This information can be used for trilateration; determining the unknown position coordinates of a point of interest, which is described in section %\ref{indsæt ref}.
-The most well-known constellation is the United States-operated \ac{GPS} \ac{GPS}. Other constellations are GLONASS from Russia, Galileo from the European Union, BeiDou from China, IRNSS from India and QZSS from Japan. The LR1110 chip is capable of receiving signals from both \ac{GPS} and BeiDou satellites.
+The most well-known constellation is the United States-operated \ac{GPS}\footnote{GPS: \url{https://www.gps.gov/}}. Other constellations are GLONASS from Russia, Galileo from the European Union, BeiDou\footnote{BeiDou Navigation Satellite System: \url{http://en.beidou.gov.cn/}} from China, IRNSS from India and QZSS from Japan. The LR1110 chip is capable of receiving signals from both \ac{GPS} and BeiDou satellites.
 Because of the signal strength and distance to the satellites, geopositioning using GNSS is predominantly viable in outdoor environments.
 
 More information about \ac{GNSS}, if we need to write more:
@@ -33,7 +33,7 @@ More information about \ac{GNSS}, if we need to write more:
 
 \subsubsection{Long Range/Wide-Area-Network (LoRa/LoRaWAN)}
 \ac{LoRa}, is an open standard networking layer, that operates on license-free sub-gigahertz radio frequency bands and is particularly well-suited for the \ac{IOT} and other applications where devices need to transmit small amounts of data over long distances while operating on low power \cite{LoRaWAN_1_0}.
-The theoretical maximum range for LoRa is \SI{850}{\kilo\meter} with the current world record standing at \SI{832}{\kilo\meter} (The Things Network sets new \ac{LoRaWAN} transmission record - by Gareth Halfacree).
+The theoretical maximum range for \ac{LoRa} is \SI{850}{\kilo\meter} with the current world record standing at \SI{832}{\kilo\meter} (The Things Network sets new \ac{LoRaWAN} transmission record - by Gareth Halfacree).
 However, the practical application of \ac{LoRa} technology is subject to significant attenuation due to environmental obstructions, resulting in substantially diminished operational ranges, as the efficacy of \ac{LoRa} transmissions is heavily contingent upon the positioning of the receiver. Indoor deployments typically yield ranges of approximately \SI{500}{\meter}, whereas outdoor placements atop buildings extend this range to around \SI{2}{\kilo\meter}, and further elevation atop tall antennas may facilitate transmission distances exceeding \SI{10}{\kilo\meter}.
 
 As shown in fig.~\ref{fig:LoRa_bandwidth_range} other low-power communication technologies exist, each with different advantages and disadvantages. However as \ac{LoRa} is the only protocol the LR1110-chip implements at this point, it is chosen as a wireless communication protocol for this project.
@@ -42,7 +42,7 @@ Considerations around the communication protocol and \ac{LoRa} versus protocols 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{figures/range_bandwidth.png}
-    \caption{Plot showing bandwidth versus the range of different wireless communication technologies. Rework from: \url{https://www3.cs.stonybrook.edu/~mdasari/courses/cse570/lora.pdf}}
+    \caption{Plot showing BW versus the range of different wireless communication technologies. Rework from: \url{https://www3.cs.stonybrook.edu/~mdasari/courses/cse570/lora.pdf}}
     \label{fig:LoRa_bandwidth_range}
 \end{figure}
 
@@ -56,25 +56,33 @@ Considerations around the communication protocol and \ac{LoRa} versus protocols 
 \end{figure}
 
 \subsubsubsection*{LoRa}
-LoRa, derived from Chirp Spread Spectrum (CSS) technology, encodes information on radio waves using frequency-modulated chirp pulses, where a chirp is a sinusoidal signal whose frequencies vary linearly over time. When illustrated in the time- and frequency domain, a chirp looks like this:
+LoRa, derived from \ac{CSS} technology, encodes information on radio waves using frequency-modulated chirp pulses, where a chirp is a sinusoidal signal whose frequencies vary linearly over time. When illustrated in the time- and frequency domain, a chirp looks like this:
 
+% ASK MAGNUS FOR THE CODE TO THE PLOTS
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{figures/linear-chirp-up-signal.png}
-    \caption{Linear up-chirp signal: (a) Time domain representation. The signal's frequency increases linearly as time passes; (b) The variation of the frequency of the signal that is illustrated in panel (a). Rework from: \url{https://www.researchgate.net/figure/Linear-up-chirp-signal-a-Time-domain-representation-The-signals-frequency-increases_fig4_341373286}}
-    \label{fig:LoRa-upchirp}
+    \begin{subfigure}{.49\textwidth}
+      \centering
+      \includegraphics[width=1.0\textwidth]{figures/Chirp Spread Spectrum Signal.png}
+    \end{subfigure}
+    \begin{subfigure}{.49\textwidth}
+      \centering
+      \includegraphics[width=1.0\textwidth]{figures/Chirp Spread Spectrum Signal Frequency.png}
+    \end{subfigure}
+    \caption{Linear up-chirp signal (left) in time domain representation. The signal's frequency increases linearly as time passes (right). The variation of the frequency of the signal is illustrated in the left panel.}
+    \label{fig:chirp}
 \end{figure}
 
 (\url{https://en.wikipedia.org/wiki/Chirp_spread_spectrum)}
 (\url{https://www.thethingsnetwork.org/docs/lorawan/what-is-lorawan/})
 
-LoRa is the physical layer of the protocol and is responsible for transmitting the raw bit stream over the physical medium.
-We want to go into much detail about how the technology works but will stick to describing the major points that influence data rate, power usage and range, which are bandwidth, sweep rate/\ac{SF} and coding factor.
+\ac{LoRa} is the physical layer of the protocol and is responsible for transmitting the raw bit stream over the physical medium.
+We want to go into much detail about how the technology works but will stick to describing the major points that influence data rate, power usage and range, which are \ac{BW}, sweep rate/\ac{SF} and coding factor.
 
-\textbf{Bandwidth (BW):} is the frequency range that the signal sweeps over. Increasing the bandwidth, increases the data rate (decreases \ac{ToA}), but reduces the resistance to noise and interference, and therefore the range. Making the bandwidth 2x wider (from BW125 to BW250) allows you to send 2x more bytes at the same time.
-In Europe, the bandwidth is restricted to \SI{125}{\kilo\hertz} and \SI{250}{\kilo\hertz}.
+\textbf{Bandwidth (BW):} frequency range that the signal sweeps over. Increasing the \ac{BW}, increases the data rate (decreases \ac{ToA}), but reduces the resistance to noise and interference, and therefore the range. Making the \ac{BW} 2x wider (from BW125 to BW250) allows you to send 2x more bytes simultaneously.
+In Europe, the \ac{BW} is restricted to \SI{125}{\kilo\hertz} and \SI{250}{\kilo\hertz}.
 
-\textbf{Spreading factor (SF):} is a word for how fast the sweep changes over the chosen bandwidth. The quicker the sweep rate, the more information can be passed in a shorter time decreasing the \ac{ToA}, but making the signal more sensitive to noise which reduces the range. Making the \ac{SF} one step lower (from SF10 to SF9) allows you to send 2 times more bytes simultaneously.
+\textbf{Spreading factor (SF):} how fast the sweep changes over the chosen \ac{BW}. The quicker the sweep rate, the more information can be passed in a shorter time decreasing the \ac{ToA} but making the signal more sensitive to noise which reduces the range. Reducing the \ac{SF} by one step (e.g. from SF10 to SF9) allows you to send 2 times more bytes simultaneously.
 
 \begin{figure}[H]
     \centering
@@ -84,7 +92,7 @@ In Europe, the bandwidth is restricted to \SI{125}{\kilo\hertz} and \SI{250}{\ki
 \end{figure}
 
 \textbf{The Code Rate (CR):} in \ac{LoRaWAN} determines the number of additional bits added to each payload, which are utilised for error correction purposes. \ac{LoRaWAN} employs four different code rates: 4/5, 4/6, 5/7 and 4/8.
-For example, if the code rate is 5/7, for every 5 bits of useful information, 2 extra bits are generated. A higher CR increases the \ac{ToA} but makes communication more robust and therefore also increases the range.
+For example, if the code rate is 5/7, for every 5 bits of useful information, 2 extra bits are generated. A higher \ac{CR} increases the \ac{ToA} but makes communication more robust and therefore also increases the range.
 
 \url{https://iopscience.iop.org/article/10.1088/1742-6596/1407/1/012092/pdf}
 
@@ -95,7 +103,7 @@ Måske link til den her: \url{https://www.thethingsnetwork.org/airtime-calculato
 All of these parameters can be configured in software, which is the real power of LoRa. As a developer, you can tailor the communication parameters to suit specific requirements, whether prioritising extended transmission distances or minimised power consumption.
 
 \subsubsubsection*{LoRaWAN}
-\ac{LoRaWAN} is the \ac{MAC} protocol sublayer on top of the physical (PHY) layer. It is a set of guidelines that dictate how the communication between devices and gateways in a LoRa network should happen. It specifies and handles:
+\ac{LoRaWAN} is the \ac{MAC} protocol sublayer on top of the physical (PHY) layer. It is a set of guidelines that dictate how the communication between devices and gateways in a \ac{LoRa} network should happen. It specifies and handles:
 \begin{itemize}
     \item how data should be transmitted; The \ac{MAC} layer structures data into frames for transmission interprets received frames, selects frequency channels for communication and manages the duty cycle, ensuring compliance with regional regulations.
     \item security; The \ac{MAC} layer handles network authentication encryption and decryption, ensuring secure communication between devices and the network.
@@ -106,15 +114,15 @@ All of these parameters can be configured in software, which is the real power o
 \url{https://sirinsoftware.com/blog/lorawan-mac-layer-definition-architecture-classes-and-more}
 
 \subsubsubsection*{Scheduling: LoRaWAN classes}
-\ac{LoRaWAN} supports different classes of devices. These classes define when an end device is allowed to receive downlinks\footnote{end devices can always send uplinks at will}, allowing for intelligent battery and network usage.
+\ac{LoRaWAN} supports different classes of devices. These classes define when an end device is allowed to receive a downlink (end devices can always send uplinks at will), allowing for intelligent battery and network usage.
 
-Class A: The key characteristic of Class A is that communication is initiated only by the end device. Downlink messages are queued until the end device establishes an uplink. When a connection is established a Class A end device waits a predetermined amount of time (usually one second), and then briefly opens a receive window (Rx1). If no downlink is received within this timeframe, it waits again and proceeds to open a secondary receive window (Rx2). The figure illustrates the different receive window state possibilities for class A. 
+Class A: The key characteristic of Class A is that communication is initiated only by the end device. Downlink messages are queued until the end device establishes an uplink. When a connection is established a Class A end device waits a predetermined amount of time (usually one second), and then briefly opens a receive window (RX1). If no downlink is received within this timeframe, it waits again and proceeds to open a secondary receive window (RX2). The figure illustrates the different receive window state possibilities for class A. 
 This device class is the most energy-efficient and must be supported by an end device.
 \url{https://lora-developers.semtech.com/uploads/documents/files/LoRaWAN_Class_A_Devices_In_Depth_Downloadable.pdf}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\linewidth]{figures/ClassA_1.jpg}
+    \includegraphics[width=0.7\linewidth]{figures/ClassA_1.png}
     \caption{Class A. No received downlink.}
     \label{fig:ClassA-no}
 \end{figure}
@@ -175,7 +183,7 @@ Generates session keys to the network server and application server
 Identity server:
 registers users, applications, devices and gateways
 
-AES-128-based secure low-power communication for \ac{LoRaWAN} IoT environments K tsai
+AES-128-based secure low-power communication for \ac{LoRaWAN} \ac{IOT} environments K tsai
 
 \begin{figure}[H]
     \centering
@@ -204,7 +212,7 @@ AES-128-based secure low-power communication for \ac{LoRaWAN} IoT environments K
 
 %https://www.loracloud.com/documentation/join_service?url=glossary.html#term-Join-Server
 
-Fig.~\ref{fig:LoRa_bandwidth_range} shows the difference between Wi-Fi and \ac{BLE}, versus \ac{LoRa} and cellular signals, comparing the range of the signal travelling and the bandwidth of the signal.
+Fig.~\ref{fig:LoRa_bandwidth_range} shows the difference between Wi-Fi and \ac{BLE}, versus \ac{LoRa} and cellular signals, comparing the range of the signal travelling and the \ac{BW} of the signal.
 
 \ac{LoRaWAN} communicates on different frequencies depending on where the device is located; EU: \SI{868}{\mega\hertz} and \SI{433}{\mega\hertz}, US: \SI{915}{\mega\hertz}, AS: \SI{430}{\mega\hertz}.
 
@@ -222,8 +230,8 @@ Modem \& geolocation services
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\linewidth]{figures/LoRaCloud_interface.png}
-    \caption{LoRa Edge\textsuperscript{\texttrademark} Asset Management Platform}
+    \includegraphics[width=1.0\linewidth]{figures/LoRaCloud_interface.png}
+    \caption{LoRa Edge Asset Management Platform.}
 \end{figure}
 
 \subsection{Geopositioning}
@@ -255,8 +263,7 @@ Overall, Google's Geolocation API provides a convenient and efficient way for de
 
 \subsubsection{GNSS positioning}
 
-The LR1110 features a fast and low-power \ac{GNSS} scanner. The device captures a short portion of the signal broadcast by the
-\ac{GNSS} satellites and extracts the information required to calculate the device position - the pseudo ranges. This information is aggregated into a \ac{NAV} which can be sent to a solver to compute the device position.
+The LR1110 features a fast and low-power \ac{GNSS} scanner. The device captures a short portion of the signal broadcast by the \ac{GNSS} satellites and extracts the information required to calculate the device position - the pseudo ranges. This information is aggregated into a \ac{NAV} which can be sent to a solver to compute the device position.
 
 \begin{figure}[H]
     \centering
@@ -271,15 +278,14 @@ Providing assistance information to the LR1110 will minimize the search space, r
 The \ac{GNSS} scanner of the LR1110 has two modes of operation: autonomous and assisted.
 
 \subsubsubsection{Autonomous GNSS Scanning}
-The LR1110 will not require any assistance information in this mode. A fast search of all \ac{SV}s with strong signals in the
-selected constellation is performed, and all the \ac{SV}s received with a signal better than RXSGPS1E\footnote{RXSGPS1E: GPS, indoor classification, and strong signal \ac{SV} capture. Typ. \SI{-134}{\dB}\cite{LR1110_datasheet}} are detected.
+The LR1110 will not require any assistance information in this mode. A fast search of all \ac{SV}s with strong signals in the selected constellation is performed, and all the \ac{SV}s received with a signal better than RXSGPS1E\footnote{RXSGPS1E: GPS, indoor classification, and strong signal \ac{SV} capture. Typ. \SI{-134}{\dB} \cite{LR1110_datasheet}} are detected.
 This mode can be used to determine if the device stands indoors or outdoors; in case no \ac{SV} with a strong signal is detected, the application concludes that the device is indoors. Therefore the search for weak signals, which takes more time and energy, can be discarded; the search for other signals of opportunity, like Wi-Fi, might be launched instead.
 
 \subsubsubsection{Assisted GNSS Scanning}
 Based on the assistance information, the LR1110 will build a list of 10 to 12 \ac{SV}s that it should look for at the position of the device and the actual time.
 Two different assisted \ac{GNSS} scanning modes are implemented:
 \begin{itemize}
-\item \textbf{Low power}: A first search of strong signal satellites within the list of visible ones will be made. If at least one satellite is found in this step, the search will continue for satellites with weaker signals. Otherwise, the search will stop. This mode minimises energy consumption and can also be used as an indoor/ outdoor detection method, in a more efficient way than the autonomous \ac{GNSS} scanning mode. The indoor classification is decided after searching 10-12 \ac{SV}s, versus 32-35 in Autonomous scanning mode.
+\item \textbf{Low power}: A first search of strong signal satellites within the list of visible ones will be made. If at least one satellite is found in this step, the search will continue for satellites with weaker signals. Otherwise, the search will stop. This mode minimises energy consumption and can also be used as an indoor/ outdoor detection method, in a more efficient way than the autonomous \ac{GNSS} scanning mode. The indoor classification is decided after searching 10-12 \ac{SV}s, versus 32-35 \ac{SV}'s in Autonomous scanning mode.
 \item \textbf{Best effort}: A first search of \ac{SV}s with strong signals, within the list of visible satellites, is made. Even if no satellite is found in the first phase, the search continues for satellites with weaker signals. This mode is to be used in difficult environments where it may be possible to find \ac{SV}s, at the expense of a longer search phase.
 \end{itemize}
 The scanner uses a sequence of capture and processing phases. To reserve power, the \ac{RF} front end will be turned off during the processing phases.
@@ -293,20 +299,37 @@ Apple, Qualcomm, Wiggle
 A brief introduction to what product design is. Maybe how it has changed?
 
 \subsubsection{Prototyping}
+Prototyping is a tool or method for examining design problems and evaluating solutions. When talking about prototypes, the discussion might revolve around their inherent attributes, as the tools utilised in their creation and the extent to which they resemble a final product in appearance or functionality (low- or high-fidelity). However, this approach can be misleading as it often overlooks the purpose of the prototype. The important part is usually not the specific media or tools employed for their creation, but what we as a designer are trying to investigate in the 
+the future product. If you as a designer are trying to represent the weight and scale of a future artefact, a brick might be a valid prototype, and if the form is what you are trying to communicate, cardboard might be a valid material choice (Houde).
+
+In Houde's paper: "What do Prototypes Prototype?", they try to "establish a model that describes any prototype in terms of the artefact being designed, rather than the prototype’s incidental attributes." As they say: "By focusing on the purpose of the prototype—that is, on what it prototypes—we can make better decisions about the kinds of prototypes to build."
+In their prototype model, they divide prototypes into four categories: role, look and feel, implementation and integration.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{prototype-model.png}
+    \caption{Four principal categories of prototypes on the model from Houde.}
+    \label{fig:prototype-model}
+\end{figure}
+
+Role prototypes are primarily constructed to explore the potential benefits an artefact could offer to users. They focus on describing the functionality users might derive value from, without delving much into the artefact's aesthetics or the technical intricacies of its implementation.
+
+Look and feel prototypes are built primarily to explore and demonstrate options for the concrete experience of an artefact. They simulate what it would be like to look at and interact with, without necessarily investigating the role it would play in the user’s life or how it would be made to work.
+
+Look and feel prototypes are primarily constructed to investigate and showcase potential experiences with an artefact. They simulate the visual and interactive aspects of interacting with the artefact, without necessarily delving into its functional role in the user's life or the technical details of its operation.
+
+Implementation prototypes are built primarily to answer technical questions about how a future artefact might be made to work. They are used to discover methods by which adequate specifications for the final artefact can be achieved—without having
+to define its look and feel or the role it will play for a user.
+
+Implementation prototypes are primarily constructed to address technical details about how a prospective artefact could feasibly function. They serve to uncover methodologies for attaining sufficient specifications for the final product without needing to specify its aesthetics or its intended role for the user. These prototypes are usually only 
+
+Designers make implementation prototypes as experiments for themselves and the design team, to demonstrate to their organisation the technical feasibility of the artefact, and to get feedback from users on performance issues.
+
+Integration prototypes are built to represent the
+complete user experience of an artefact. Such prototypes
+bring together the artefact’s intended design
+in terms of role, look and feel, and implementation.
 
 
-
-
-3D-printing
-However, since interactive systems are complex, it may be difficult or impossible to create prototypes of a whole design in the formative stages of a project.
-Choosing the right kind of more focused prototype to build is an art in itself, and communicating its limited purposes to its various audiences is a critical aspect of its use
-
-This chapter aims to establish a model that describes any prototype in terms of the artifact being designed, rather than the prototype's incidental attributes. By focusing on the purpose of the prototype—that is, on what it prototypes
-
-Prototypes provide the means for examining design problems and evaluating solutions. Selecting the focus of a prototype is the art of identifying the most important open design questions
-
-Teksten ovenfra er fra Houde - What do Prototypes prototype?
-Skriv om, hvordan prototyper kan teste forskellige ting, og hvordan opmærksomhed på dette inden, kan hjælpe med at få det rigtige udkom af ens prototype.
 
 \subsubsection{Actor-oriented design}
 Hvad er en fælles nævner for de forskellige etnografiske feltstudiemetoder?

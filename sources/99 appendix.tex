@@ -5,7 +5,7 @@
 \section{Development setup} \label{app:devsetup}
 If working on Windows, the following programs are needed:
 \begin{itemize}
-    \item CubeMX \ref{app:software:stm32cubemx}
+    \item STM32CubeMX \ref{app:software:stm32cubemx}
     \item Arm GNU Toolchain (download as zip) \ref{app:software:arm_toolchain}
     \item Visual Studio Code \ref{app:software:vsc}
     \item OpenOCD \ref{app:software:openocd}
@@ -18,8 +18,8 @@ And the following binaries:
 \end{itemize}
 
 \begin{enumerate}
-    \item Download all of the files, install VSCode and CubeMX and unpack the rest to a folder of your choice.
-    \item Setup a new project in CubeMX, and change the toolchain under the project manager to \lstinline[style=bash]{Makefile}
+    \item Download all of the files, install VSCode and STM32CubeMX and unpack the rest to a folder of your choice.
+    \item Setup a new project in STM32CubeMX, and change the toolchain under the project manager to \lstinline[style=bash]{Makefile}
     \item Add paths to system environment variables.
     \begin{enumerate}
         \item Add new variable with name \lstinline[style=bash]{ARMGCC\_DIR} with value \lstinline[style=bash]{<your path>\arm-gnu-toolchain-<version>.Rel1-mingw-w64-i686-arm-none-eabi\bin}
@@ -194,12 +194,12 @@ And the following binaries:
     \endlastfoot
 
     \multicolumn{6}{c}{\cellcolor[HTML]{EFEFEF}Chips} \\
-    STM32L476 & U1 & LQFP-64 & STM32L476RET6 & ST & 2.924 \label{bom:stm32l476} \\
+    STM32L476 & U1 & LQFP-64 & STM32L476RET6 & STMicroelectronics & 2.924 \label{bom:stm32l476} \\
     LR1110 & U2 & QFN-50 & LR1110IMLTRT & Semtech & 10.54 \label{bom:lr1110}\\
     SKY13588-460LF & U3 & QFN-12 & SKY13588-460LF & SKYWORKS & 2.254 \\
     BGA524N6E6327 & U4 & TSNP-6 & BGA524N6E6327 & Infineon & 0.286 \label{bom:bga524n6e6327}\\
     XC6220B331MR & U5 & SOT23-5 & XC6220B331MR & TECH PUBLIC & 0.179 \label{bom:xc6220} \\
-    LIS2DE12TR & U6 & LGA-12 & LIS2DE12TR & ST & 0.469 \label{bom:lis2de12}\\
+    LIS2DE12TR & U6 & LGA-12 & LIS2DE12TR & STMicroelectronics & 0.469 \label{bom:lis2de12}\\
     BU52077GWZ-E2 & U7 & BGA-4 & BU52077GWZ-E2 & ROHM & 0.177 \label{bom:bu52077gwz}\\
 
     \multicolumn{6}{c}{\cellcolor[HTML]{EFEFEF}Resistors} \\
@@ -320,7 +320,7 @@ And the following binaries:
     \subsection{PCB} \label{app:PCB}
     \begin{figure}[H]  
         \centering
-        \includegraphics[width=1\textwidth]{figures/PCB_v3.png}
+        \includegraphics[width=1.25\textwidth]{figures/PCB_v3.png}
         \caption{Overview of the final PCB.}
     \end{figure}
 \end{landscape}

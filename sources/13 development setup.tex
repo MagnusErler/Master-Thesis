@@ -5,9 +5,9 @@ This section summarises guidelines for setting up an efficient developing enviro
 On both Windows and Linux start by cloning the code from GitHub: \url{https://github.com/MagnusErler/WiFiLocationTracker}
 
 \textbf{Windows:}
-If working on Windows\footnote{Windows Subsystem for Linux \ac{WSL} can not be used, as peripheral access (USB access) is not implemented in WSL2}, the following programs are needed:
+If working on Windows\footnote{\ac{WSL} can not be used, as peripheral access (\ac{USB} access) is not implemented in WSL2}, the following programs are needed:
 \begin{itemize}
-    \item CubeMX \sbref{app:software:stm32cubemx}
+    \item STM32CubeMX \sbref{app:software:stm32cubemx}
     \item OpenOCD \sbref{app:software:openocd}
     \item Visual Studio Code \sbref{app:software:vsc}
     \item Git (download as zip) \sbref{app:software:git}
@@ -22,15 +22,15 @@ And the following binaries:
 \end{itemize}
 
 \textbf{Linux:}
-Suppose working on Linux CubeMX as needed. Maybe more.
+Suppose working on Linux STM32CubeMX as needed. Maybe more.
 
-software installations will be done through Linux's inbuilt package manager, and no program downloads are necessary.
+software installations will be done through Linux's inbuilt package manager and no program downloads are necessary.
 
 \subsection{Installation guide}
 
 \textbf{Windows:}
 \begin{enumerate}
-    \item Download all of the files, install VSCode and CubeMX and unpack the rest to a folder of your choice.
+    \item Download all of the files, install VSCode and STM32CubeMX and unpack the rest to a folder of your choice.
     \item Add paths for Arm GNU Toolchain, Make, OpenOCD and Git to system environment variables.
     \item Compile program using command \lstinline[style=bash]{make} in a terminal.
     \item Add openocd flash command to the newly created \lstinline[style=bash]{Makefile} using the stlink interface and with \textit{verify, reset, exit} as parameters.
@@ -38,7 +38,7 @@ software installations will be done through Linux's inbuilt package manager, and
 
 \textbf{Linux:}
 \begin{enumerate}
-    \item Download and install CubeMX
+    \item Download and install STM32CubeMX
 \end{enumerate}
 INDSÆT ENUMERATE OM HVORDAN MAN GØR PÅ LINUX
 
@@ -69,12 +69,12 @@ Then place the demo application (\file{lr1110_evk_v3.2.0.bin})
 From https://github.com/Lora-net/SWTL001
 Copy-paste firmware for transceiver on the STM32 by dragging the following .bin-file to the STM32 folder on your computer; \file{lr11xx-updater-tool_v2.3.0_lr1110_trx_0x0401.bin}
 
-Then flash your application-code with Visual Studio Code.
+Then flash your application code with Visual Studio Code.
 
 
 Write down \lstinline[style=bash]{USER_LORAWAN_DEVICE_EUI}, \lstinline[style=bash]{USER_LORAWAN_JOIN_EUI}, and \lstinline[style=bash]{USER_LORAWAN_APP_KEY} (can be found on \url{Loracloud.com})
 
-Run the following to update the alamanc; \lstinline[style=python]{python get_full_almanac.py -f almanac.h put_you_LoRaCloud_MGS_token_here}
+Run the following to update the almanac; \lstinline[style=python]{python get_full_almanac.py -f almanac.h put_you_LoRaCloud_MGS_token_here}
 Find the token on \url{loracloud.com}
 and then make and flash the bin-file to the board: \lstinline[style=bash]{make full_lr1110 MODEM_APP=EXAMPLE_FULL_ALMANAC_UPDATE}
 
